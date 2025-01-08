@@ -11,13 +11,18 @@ import Foundation
 class WorldNewsViewModel: ObservableObject {
 //    @Published var news: [News] = []
     @Published var greeting: String = "Hello, Stranger!"
+    @Published var news: String = "Hello, Stranger!"
 
     
     func fetchNews() {
-
         Task {
             greeting = try await WorldNewsClient().getGreeting(name: "News")
         }
+    }
 
+    func getNews() {
+        Task {
+             try await WorldNewsClient().getNews()
+        }
     }
 }

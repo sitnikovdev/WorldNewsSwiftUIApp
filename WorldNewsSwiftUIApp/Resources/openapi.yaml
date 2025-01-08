@@ -1,36 +1,103 @@
-openapi: '3.1.0'
+#  openapi.yaml
+#  Created by Oleg Sitnikov on 07.01.25.
+
+openapi: 3.0.3
 info:
-  title: GreetingService
+  title: News API
+  description: API for retrieving the latest news articles.
   version: 1.0.0
 servers:
-  - url: http://127.0.0.1:8080/api
-    description: Example service deployment.
+  - url: https://newsapi.org/v2
 paths:
-  /greet:
+  /everything?q=bitcoin:
     get:
-      operationId: getGreeting
-      parameters:
-        - name: name
-          required: false
-          in: query
-          description: The name used in the returned greeting.
-          schema:
-            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Get the latest news articles
+      description: Fetches the latest news articles with details like title, description, and publication date.
+      operationId: getLatestNews
       responses:
         '200':
-          description: A success response with a greeting.
+          description: A list of news articles
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Greeting'
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+                  totalResults:
+                    type: integer
+                    example: 639
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid query parameters"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Internal server error"
 components:
+  securitySchemes:
+    ApiKeyAuth: # arbitrary name for the security scheme
+      type: apiKey
+      in: header # can be "header", "query" or "cookie"
+      name: X-API-KEY # name of the header, query parameter or cookie
   schemas:
-    Greeting:
+    Source:
       type: object
-      description: A value with the greeting contents.
       properties:
-        message:
+        id:
           type: string
-          description: The string representation of the greeting.
-      required:
-        - message
+          example: "techcrunch"
+        name:
+          type: string
+          example: "TechCrunch"
+    Article:
+      type: object
+      properties:
+        source:
+          $ref: '#/components/schemas/Source'
+        author:
+          type: string
+          example: "Anna Heim"
+        title:
+          type: string
+          example: "Bench saved by the bell, and other last-minute deals that closed 2024 | TechCrunch"
+        description:
+          type: string
+          example: "Welcome to Startups Weekly — your weekly recap of everything you can’t miss from the world of startups. Want it in your inbox every Friday? Sign up here."
+        url:
+          type: string
+          example: "https://techcrunch.com/2025/01/03/bench-saved-by-the-bell-and-other-last-minute-deals-that-closed-2024/"
+        urlToImage:
+          type: string
+          example: "https://techcrunch.com/wp-content/uploads/2019/05/GettyImages-499303888-e1586702525772.jpg?resize=1200,911"
+        publishedAt:
+          type: string
+          format: date-time
+          example: "2025-01-03T18:07:38Z"
+        content:
+          type: string
+          example: "Welcome to Startups Weekly your weekly recap of everything you cant miss from the world of startups. Want it in your inbox every Friday?Sign up here.\r\nWelcome to 2025! The first half of the week was … [+2970 chars]"
+
+security:
+  - ApiKeyAuth: [] # use the same name as under securitySchemes
+

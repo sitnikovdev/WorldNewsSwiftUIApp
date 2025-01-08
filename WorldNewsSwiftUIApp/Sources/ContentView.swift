@@ -20,6 +20,7 @@ struct ContentView: View {
         .onAppear {
             Task {
                 viewModel.fetchNews()
+                viewModel.getNews()
             }
     }
         .padding()
