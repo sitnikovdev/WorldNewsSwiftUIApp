@@ -12,9 +12,12 @@ public struct WorldNewsClient {
     public init() {}
 
     public func getGreeting(name: String?) async throws -> String {
+        let apiKey = "2fc50c684ad04a7e8dcf413c0d6e20a8"
+
         let client = Client(
             serverURL: try Servers.Server1.url(),
-            transport: URLSessionTransport()
+            transport: URLSessionTransport(),
+            middlewares: [AuthenticationMiddleware(authorizationHeaderFieldValue: apiKey)]
             )
         let response = try await client.getGreeting(query: .init(name: name))
 
