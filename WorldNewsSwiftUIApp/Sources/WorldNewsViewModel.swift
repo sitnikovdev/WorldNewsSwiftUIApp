@@ -12,9 +12,6 @@ class WorldNewsViewModel: ObservableObject {
 //    @Published var news: [News] = []
     @Published var greeting: String = "Hello, Stranger!"
 
-    init() {
-        fetchNews()
-    }
     
     func fetchNews() {
 
