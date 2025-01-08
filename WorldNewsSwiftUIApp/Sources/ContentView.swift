@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = WorldNewsViewModel()
+
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text(viewModel.greeting)
         }
         .onAppear {
             Task {
-                let greeting = try await WorldNewsClient().getGreeting(name: "World")
-                print(greeting)
+                viewModel.fetchNews()
             }
     }
         .padding()
