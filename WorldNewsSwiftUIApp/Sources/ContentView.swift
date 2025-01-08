@@ -15,6 +15,12 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
             Text("Hello, world!")
         }
+        .onAppear {
+            Task {
+                let greeting = try await WorldNewsClient().getGreeting(name: "World")
+                print(greeting)
+            }
+    }
         .padding()
     }
 }
