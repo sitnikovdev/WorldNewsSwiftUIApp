@@ -21,7 +21,12 @@ public struct WorldNewsClient {
             transport: URLSessionTransport(),
             middlewares: [AuthenticationMiddleware(authorizationHeaderFieldValue: apiKey)]
         )
-        let response = try await client.getLatestNews(query: .init(q: "bitcoin", pageSize: 10))
+        let response = try await client.getLatestNews(
+                query: .init(
+                    q: "bitcoin",
+                    pageSize: 10,
+                    page: 1
+                ))
         let newsJson = try response.ok.body.json
 
         news = newsJson.articles ?? []
