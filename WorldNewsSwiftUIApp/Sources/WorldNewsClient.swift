@@ -11,11 +11,6 @@ public struct WorldNewsClient {
 
     public init() {}
 
-    public func getGreeting(name: String?) async throws -> String {
-
-         "Hello, World!"
-    }
-
     func getNews() async throws  -> [Components.Schemas.Article] {
         var news: [Components.Schemas.Article] = []
 

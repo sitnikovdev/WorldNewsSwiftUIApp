@@ -9,19 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = WorldNewsViewModel()
-    @State var news: [Components.Schemas.Article] = []
+    @State var articles: [Components.Schemas.Article] = []
 
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text(viewModel.greeting)
+            Text("News count: \(articles.count)")
         }
         .onAppear {
             Task {
-                viewModel.fetchNews()
-                 let articles =  await viewModel.getNews()
+                articles =  await viewModel.getNews()
                 print(articles)
             }
     }
