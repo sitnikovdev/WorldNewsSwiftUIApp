@@ -12,11 +12,14 @@ struct ContentView: View {
     @State var articles: [Components.Schemas.Article] = []
 
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("News count: \(articles.count)")
+        List {
+            ForEach(articles, id: \.self) { article in
+                VStack {
+                    if let author = article.author {
+                        Text(author)
+                    }
+                }
+            }
         }
         .onAppear {
             Task {
@@ -26,4 +29,5 @@ struct ContentView: View {
     }
         .padding()
     }
+
 }
