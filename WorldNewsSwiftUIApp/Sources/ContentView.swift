@@ -16,6 +16,7 @@ struct ContentView: View {
         List {
             ForEach(articles) { article in
                     if let title = article.title {
+                        Text("id: \(article.id)")
                         Text(title)
                             .onAppear {
                                 Task {

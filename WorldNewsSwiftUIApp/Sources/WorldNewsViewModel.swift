@@ -23,10 +23,10 @@ class WorldNewsViewModel: ObservableObject {
 
            let articlesAPI = response.articles ?? []
            articlesAPI.forEach { news.append(.init($0)) }
-           currentPage += 1
            print("total results: \(totalResults)")
            print("page: \(currentPage)")
            print("item id: \(news.last?.id ?? 0)")
+           currentPage += 1
            return news
         } catch {
            print(error)
