@@ -18,6 +18,9 @@ struct ContentView: View {
                     if let author = article.author {
                         Text(author)
                     }
+                    if let title = article.title {
+                        Text(title)
+                    }
                 }
             }
         }
