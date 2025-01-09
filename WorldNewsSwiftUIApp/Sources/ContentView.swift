@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = WorldNewsViewModel()
+    @State var news: [Components.Schemas.Article] = []
 
     var body: some View {
         VStack {
@@ -20,13 +21,10 @@ struct ContentView: View {
         .onAppear {
             Task {
                 viewModel.fetchNews()
-                viewModel.getNews()
+                 let articles =  await viewModel.getNews()
+                print(articles)
             }
     }
         .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }

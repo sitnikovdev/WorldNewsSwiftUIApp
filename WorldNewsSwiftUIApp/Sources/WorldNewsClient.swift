@@ -16,7 +16,7 @@ public struct WorldNewsClient {
          "Hello, World!"
     }
 
-    public func getNews() async throws  {
+    func getNews() async throws  -> [Components.Schemas.Article] {
         var news: [Components.Schemas.Article] = []
 
         let apiKey = "2fc50c684ad04a7e8dcf413c0d6e20a8"
@@ -30,8 +30,7 @@ public struct WorldNewsClient {
         let newsJson = try response.ok.body.json
 
         news = newsJson.articles ?? []
-        print(news)
-
+        return news
     }
 
 

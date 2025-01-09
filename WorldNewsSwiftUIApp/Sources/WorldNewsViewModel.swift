@@ -11,7 +11,7 @@ import Foundation
 class WorldNewsViewModel: ObservableObject {
 //    @Published var news: [News] = []
     @Published var greeting: String = "Hello, Stranger!"
-    @Published var news: String = "Hello, Stranger!"
+    @Published var news: [Components.Schemas.Article] = []
 
     
     func fetchNews() {
@@ -20,9 +20,13 @@ class WorldNewsViewModel: ObservableObject {
         }
     }
 
-    func getNews() {
-        Task {
-             try await WorldNewsClient().getNews()
-        }
+    func getNews() async  -> [Components.Schemas.Article] {
+       do {
+           news =  try await WorldNewsClient().getNews()
+           return news
+        } catch {
+           print(error)
+           return []
+       }
     }
 }
