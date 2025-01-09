@@ -11,8 +11,7 @@ public struct WorldNewsClient {
 
     public init() {}
 
-    func getNews() async throws  -> [Components.Schemas.Article] {
-        var news: [Components.Schemas.Article] = []
+    func getNewsResponse(page: Int = 1) async throws  -> Operations.GetLatestNews.Output.Ok.Body.JsonPayload {
 
         let apiKey = "2fc50c684ad04a7e8dcf413c0d6e20a8"
 
@@ -25,14 +24,11 @@ public struct WorldNewsClient {
                 query: .init(
                     q: "bitcoin",
                     pageSize: 10,
-                    page: 1
+                    page: page
                 ))
-        let newsJson = try response.ok.body.json
 
-        news = newsJson.articles ?? []
-        return news
+        return try response.ok.body.json
     }
-
 
 }
 

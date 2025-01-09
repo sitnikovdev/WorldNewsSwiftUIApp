@@ -6,28 +6,32 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct ContentView: View {
     @StateObject var viewModel = WorldNewsViewModel()
-    @State var articles: [Components.Schemas.Article] = []
+    @State var articles: [ArticleItem] = []
 
     var body: some View {
         List {
-            ForEach(articles, id: \.self) { article in
-                VStack {
-                    if let author = article.author {
-                        Text(author)
-                    }
+            ForEach(articles) { article in
                     if let title = article.title {
                         Text(title)
+                            .onAppear {
+                                Task {
+                                    if articles.isNearElement(article) {
+                                        print("getNews called")
+                                        articles = await viewModel.getNews()
+                                     }
+                                }
+                            }
                     }
-                }
+
             }
         }
         .onAppear {
             Task {
                 articles =  await viewModel.getNews()
-                print(articles)
             }
     }
         .padding()
