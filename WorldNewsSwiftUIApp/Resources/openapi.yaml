@@ -9,11 +9,19 @@ info:
 servers:
   - url: https://newsapi.org/v2
 paths:
-  /everything?q=bitcoin:
+  /everything:
     get:
       security:
         - ApiKeyAuth: []
       summary: Get the latest news articles
+      parameters:
+        - name: q
+          in: query
+          description: The search query term (e.g., 'bitcoin')
+          required: true
+          schema:
+            type: string
+            example: bitcoin
       description: Fetches the latest news articles with details like title, description, and publication date.
       operationId: getLatestNews
       responses:
