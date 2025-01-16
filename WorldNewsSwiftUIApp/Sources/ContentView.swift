@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 
 struct ContentView: View {
-    @StateObject var viewModel = WorldNewsViewModel()
+    var viewModel = WorldNewsViewModel()
     @State var articles: [ArticleItem] = []
 
     var body: some View {

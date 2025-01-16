@@ -8,8 +8,9 @@
 import Foundation
 
 @MainActor
-class WorldNewsViewModel: ObservableObject {
-    @Published var news: [ArticleItem] = []
+@Observable
+class WorldNewsViewModel {
+    var news: [ArticleItem] = []
     private var currentPage: Int = 1
     private var totalResults: Int = 0
     private var statusCode: String?
