@@ -1,14 +1,11 @@
-#  openapi.yaml
-#  Created by Oleg Sitnikov on 07.01.25.
-
 openapi: 3.0.3
 info:
   title: News API
   description: API for retrieving the latest news articles.
   version: 1.0.0
 servers:
-#  - url: https://newsapi.org/v2
-   - url: http://127.0.0.1:8080/news
+  - url: http://localhost:8080/news
+
 paths:
   /everything:
     get:
@@ -82,12 +79,94 @@ paths:
                   error:
                     type: string
                     example: "Internal server error"
+
+  /top-headlines:
+    get:
+      security:
+        - ApiKeyAuth: []
+      summary: Get the latest top headlines
+      parameters:
+        - name: country
+          in: query
+          description: The 2-letter ISO 3166-1 code of the country
+          required: false
+          schema:
+            type: string
+            example: us
+        - name: q
+          in: query
+          description: The search query term (e.g., 'bitcoin'). Can be used to filter headlines further.
+          required: false
+          schema:
+            type: string
+            example: bitcoin
+        - name: pageSize
+          in: query
+          description: The number of results to return per page
+          required: false
+          schema:
+            type: integer
+            default: 10
+            example: 10
+            minimum: 1
+            maximum: 100
+        - name: page
+          in: query
+          description: The page number to fetch (used with `pageSize` for pagination).
+          required: false
+          schema:
+            type: integer
+            default: 1
+            example: 1
+            minimum: 1
+      description: Fetches the top headlines for the specified country (or globally) with details like title, description, and publication date.
+      operationId: getTopHeadlines
+      responses:
+        '200':
+          description: A list of top news articles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+                  totalResults:
+                    type: integer
+                    example: 639
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid query parameters"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Internal server error"
+
 components:
   securitySchemes:
-    ApiKeyAuth: # arbitrary name for the security scheme
+    ApiKeyAuth:
       type: apiKey
-      in: header # can be "header", "query" or "cookie"
-      name: X-API-KEY # name of the header, query parameter or cookie
+      in: header
+      name: X-API-KEY
+
   schemas:
     Source:
       type: object
@@ -98,6 +177,7 @@ components:
         name:
           type: string
           example: "TechCrunch"
+
     Article:
       type: object
       properties:
@@ -127,5 +207,6 @@ components:
           example: "Welcome to Startups Weekly your weekly recap of everything you cant miss from the world of startups. Want it in your inbox every Friday?Sign up here.\r\nWelcome to 2025! The first half of the week was … [+2970 chars]"
 
 security:
-  - ApiKeyAuth: [] # use the same name as under securitySchemes
+  - ApiKeyAuth: []
+
 
