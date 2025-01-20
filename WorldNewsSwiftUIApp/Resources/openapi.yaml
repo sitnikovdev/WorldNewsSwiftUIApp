@@ -141,6 +141,28 @@ paths:
           schema:
             type: string
             example: bitcoin
+        - name: category
+          in: query
+          description: "The category you want to get headlines for. Possible options: business, entertainment, general, health, science, sports, technology."
+          required: false
+          schema:
+            type: string
+            enum:
+                - business
+                - entertainment
+                - general
+                - health
+                - science
+                - sports
+                - technology
+          example: "technology"
+        - name: sources
+          in: query
+          description: "A comma-separated string of identifiers for the news sources or blogs you want headlines from. Use the /top-headlines/sources endpoint to locate these identifiers."
+          required: false
+          schema:
+              type: string
+              example: "bbc-news,techcrunch"
         - name: pageSize
           in: query
           description: The number of results to return per page
