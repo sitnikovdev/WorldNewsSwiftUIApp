@@ -43,8 +43,8 @@ public struct WorldNewsClient {
         let response = try await client.getTopHeadlines(
                 query: .init(
                     country: "us",
-                    pageSize: 100,
-                    page: 1
+                    pageSize: 10,
+                    page: page
                 ))
 
         return try response.ok.body.json
