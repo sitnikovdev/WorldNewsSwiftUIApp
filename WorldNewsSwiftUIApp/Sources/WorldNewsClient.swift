@@ -22,7 +22,7 @@ public struct WorldNewsClient {
         )
         let response = try await client.getLatestNews(
                 query: .init(
-                    q: "bitcoin",
+                    q: "apple",
                     pageSize: 10,
                     page: page
                 ))
@@ -43,8 +43,8 @@ public struct WorldNewsClient {
         let response = try await client.getTopHeadlines(
                 query: .init(
                     country: "us",
-                    pageSize: 10,
-                    page: page
+                    pageSize: 100,
+                    page: 1
                 ))
 
         return try response.ok.body.json
