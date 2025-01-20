@@ -20,6 +20,47 @@ paths:
           schema:
             type: string
             example: bitcoin
+        - name: searchIn
+          in: query
+          description: "The fields to restrict your q search to. Possible options: title, description, content. Multiple options can be specified by separating them with a comma."
+          required: false
+          schema:
+            type: string
+            example: "title,content"
+        - name: language
+          in: query
+          description: "The 2-letter ISO-639-1 code of the language you want to get headlines for. Possible options: ar, de, en, es, fr, hi, it, nl, no, pt, ru, sv, zh."
+          required: false
+          schema:
+            type: string
+            example: "en"
+        - name: sortBy
+          in: query
+          description: "The order to sort the articles in. Possible options: relevancy, popularity, publishedAt."
+          required: false
+          schema:
+            type: string
+            enum:
+            - relevancy
+            - popularity
+            - publishedAt
+            example: "publishedAt"
+        - name: from
+          in: query
+          description: "A date and optional time for the oldest article allowed. This should be in ISO 8601 format (e.g. 2025-01-20 or 2025-01-20T12:59:20)."
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: "2025-01-20T12:59:20"
+        - name: to
+          in: query
+          description: "A date and optional time for the newest article allowed. This should be in ISO 8601 format (e.g. 2025-01-20 or 2025-01-20T12:59:20)."
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: "2025-01-20T12:59:20"
         - name: pageSize
           in: query
           description: The number of results to return per page
