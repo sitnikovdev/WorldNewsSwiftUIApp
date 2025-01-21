@@ -9,26 +9,15 @@ import Foundation
 class Helper {
     static var lastId: Int = 0
 }
+typealias ArticleDTO = Components.Schemas.Article
 
 struct ArticleItem: Identifiable, Hashable {
     let id: Int
-    let title: String?
-    let description: String?
-    let imageUrl: String?
-    let url: String?
-    let publishedAt: Date?
-    let author: String?
-    let content: String?
+    var articleDTO: ArticleDTO?
 
-    init(_ article: Components.Schemas.Article? = nil) {
+    init(_ article: ArticleDTO? = nil) {
         self.id = Helper.lastId + 1
+        self.articleDTO = article
         Helper.lastId += 1
-        self.title = article?.title
-        self.description = article?.description
-        self.imageUrl = article?.urlToImage
-        self.url = article?.url
-        self.publishedAt = article?.publishedAt
-        self.author = article?.author
-        self.content = article?.content
     }
 }

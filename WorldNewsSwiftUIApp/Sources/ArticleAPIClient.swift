@@ -7,7 +7,7 @@
 import Foundation
 import OpenAPIURLSession
 
-public struct WorldNewsClient {
+public struct ArticleAPIClient {
 
     public init() {}
 
