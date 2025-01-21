@@ -18,8 +18,8 @@ class WorldNewsViewModel {
 
     func getNews() async  -> [ArticleItem] {
        do {
-//           let response =  try await WorldNewsClient().getTopHeadline(page: currentPage)
-           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
+           let response =  try await WorldNewsClient().getTopHeadline(page: currentPage)
+//           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
            totalResults = response.totalResults ?? 0
            statusCode = response.status ?? ""
 
