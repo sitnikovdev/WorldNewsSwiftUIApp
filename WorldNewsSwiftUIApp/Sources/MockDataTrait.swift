@@ -10,7 +10,7 @@ import SwiftUI
 struct MockDataTrait: PreviewModifier {
     func body(content: Content, context: Void) -> some View {
         @Previewable @State var dataProvider: ArticleDataProvider = .init()
-        dataProvider.setMockData()
+        dataProvider.setMockDataFromJSON()
         return content
             .environment(dataProvider)
     }

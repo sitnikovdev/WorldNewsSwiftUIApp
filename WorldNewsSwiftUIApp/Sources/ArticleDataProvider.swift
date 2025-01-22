@@ -17,14 +17,33 @@ class ArticleDataProvider {
     private var totalResults = 0
 
     init() {
-//        setMockData()
+//        setMockDataFromJSON()
     }
-
 
     // MARK: - MOCK DATA
     func setMockData() {
          Article.mockData.forEach {
             articleItems.append(.init($0))
+        }
+    }
+    func setMockData(from dto: [ArticleAPI]) {
+         dto.forEach {
+             articleItems.append(.init(Article.toArticle(dto: $0)))
+        }
+    }
+
+    typealias JsonPayload = Operations.GetLatestNews.Output.Ok.Body.JsonPayload
+
+    func setMockDataFromJSON() {
+        if let url = Bundle.main.url(forResource: "mockData", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(ArticleResponseAPI.self, from: data)
+                setMockData(from: response.articles ?? [])
+            } catch {
+                print(error)
+            }
         }
     }
 

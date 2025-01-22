@@ -18,6 +18,7 @@ struct ArticleListView: View {
             VStack {
                 Text(item.article.author ?? "No author")
                 Text(item.article.title ?? "No title")
+                Text(item.article.toImageUrl ?? "No image")
             }
         }
         .onAppear{
