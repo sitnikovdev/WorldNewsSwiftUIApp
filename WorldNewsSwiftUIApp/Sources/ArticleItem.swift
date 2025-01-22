@@ -12,12 +12,20 @@ class Helper {
 typealias ArticleDTO = Components.Schemas.Article
 
 struct ArticleItem: Identifiable, Hashable {
-    let id: Int
-    var articleDTO: ArticleDTO?
+    static func == (lhs: ArticleItem, rhs: ArticleItem) -> Bool {
+        return lhs.id == rhs.id
+    }
 
-    init(_ article: ArticleDTO? = nil) {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    let id: Int
+    var article: Article
+
+    init(_ article: Article) {
         self.id = Helper.lastId + 1
-        self.articleDTO = article
+        self.article = article
         Helper.lastId += 1
     }
 }

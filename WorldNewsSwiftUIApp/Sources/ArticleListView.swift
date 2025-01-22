@@ -9,17 +9,24 @@ import SwiftUI
 
 struct ArticleListView: View {
     // MARK: PROPERTIES
-    let viewModel: ArticleViewModel = .init()
+    @Environment(ArticleDataProvider.self) var dataProvider
 
     // MARK: - BODY
     var body: some View {
-        List(viewModel.articles, id: \.id) { item in
-            Text("Hello, World!")
+        List(dataProvider.articleItems, id: \.id) { item in
+
+            VStack {
+                Text(item.article.author ?? "No author")
+                Text(item.article.title ?? "No title")
+            }
+        }
+        .onAppear{
+//            dataProvider.setMockData()
         }
     }
 }
 
 // MARK: - PREVIEW
-#Preview {
-    ArticleListView()
+#Preview(traits: .mockData) {
+     ArticleListView()
 }
