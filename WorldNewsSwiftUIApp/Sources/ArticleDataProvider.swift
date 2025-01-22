@@ -103,14 +103,12 @@ class ArticleDataProvider {
     // MARK: - SKELETON PAGINATION
     func getNewsWithSkeletonView() async  -> [ArticleItem] {
         print("API Call with Real Data | Skeleton")
-        print("total pages: \(totalPages)")
         do {
-            for  page in 1...totalPages {
-                print("page: \(page)")
+            print("page: \(currentPage)")
 
-                let response =  try await ArticleAPIClient().getTopHeadline(page: page,
+                let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
                                                                             pageSize: 10,
-                                                                            category: .entertainment,
+                                                                            category: .science,
                                                                             country: "us"
                 )
                 //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
@@ -121,8 +119,8 @@ class ArticleDataProvider {
                 let articlesAPI = response.articles ?? []
                 articlesAPI.forEach { articleItems.append(.init(Article.toArticle(dto: $0))) }
                 print("last item id: \(articleItems.last?.id ?? 0)")
+                currentPage += 1
                 return articleItems
-            }
         } catch {
             print(error)
         }

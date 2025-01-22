@@ -52,7 +52,9 @@ struct ArticleListView: View {
                     }
                     .onAppear {
                         Task {
-                            await dataProvider.getNewsWithSkeletonView()
+                            if dataProvider.articleItems.isNearElement(item) {
+                                _ = await dataProvider.getNewsWithSkeletonView()
+                            }
                         }
                     }
                 }
