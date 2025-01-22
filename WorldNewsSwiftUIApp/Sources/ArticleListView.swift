@@ -18,10 +18,9 @@ struct ArticleListView: View {
                 List(dataProvider.articleItems, id: \.id) { item in
 
                            VStack {
-                               Text(item.article.author ?? "No author")
                                Spacer()
                                Text(item.article.title ?? "No title")
-                                   .font(.headline)
+                                   .font(.title)
                                Spacer()
                                if let imageUrl = item.article.toImageUrl {
                                    AsyncImage(url: URL(string: imageUrl)) { phase in
