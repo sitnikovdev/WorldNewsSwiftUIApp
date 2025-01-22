@@ -13,21 +13,29 @@ struct ArticleListView: View {
 
     // MARK: - BODY
     var body: some View {
-        List(dataProvider.articleItems, id: \.id) { item in
+        NavigationStack {
+            Form {
+                List(dataProvider.articleItems, id: \.id) { item in
 
-            VStack {
-                Text(item.article.author ?? "No author")
-                Text(item.article.title ?? "No title")
-                Text(item.article.toImageUrl ?? "No image")
+                           VStack {
+                               Text(item.article.author ?? "No author")
+                               Spacer()
+                               Text(item.article.title ?? "No title")
+                               Spacer()
+                               Text(item.article.toImageUrl ?? "No image")
+                               Spacer()
+                               Spacer()
+                               Spacer()
+                               Divider()
+                           }
+               }
             }
-        }
-        .onAppear{
-//            dataProvider.setMockData()
+            .navigationTitle("Total News: \(dataProvider.articleItems.count)")
         }
     }
 }
 
 // MARK: - PREVIEW
 #Preview(traits: .mockData) {
-     ArticleListView()
+    ArticleListView()
 }

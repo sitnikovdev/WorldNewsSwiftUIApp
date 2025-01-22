@@ -16,9 +16,6 @@ class ArticleDataProvider {
     private var currentPage  = 1
     private var totalResults = 0
 
-    init() {
-//        setMockDataFromJSON()
-    }
 
     // MARK: - MOCK DATA
     func setMockData() {
@@ -40,6 +37,7 @@ class ArticleDataProvider {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(ArticleResponseAPI.self, from: data)
+                totalResults = response.totalResults ?? 0
                 setMockData(from: response.articles ?? [])
             } catch {
                 print(error)
