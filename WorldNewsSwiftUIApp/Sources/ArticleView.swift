@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ArticleView: View {
     // MARK: - PROPERTIES
-    let viewModel: ArticleDataProvider = .init()
 
     // MARK: - BODY
     var body: some View {

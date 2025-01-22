@@ -16,6 +16,13 @@ class ArticleDataProvider {
     private var currentPage  = 1
     private var totalResults = 0
 
+    // MARK: - INIT
+    init()  {
+        Task {
+            await getData()
+        }
+    }
+
 
     // MARK: - MOCK DATA
     func setMockData() {
@@ -45,8 +52,26 @@ class ArticleDataProvider {
         }
     }
 
-    // MARK: - API CALL
+    func getMockData() -> [ArticleItem] {
+        print("API Call with Mock Data")
+        if let url = Bundle.main.url(forResource: "mockData", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(ArticleResponseAPI.self, from: data)
+                totalResults = response.totalResults ?? 0
+                setMockData(from: response.articles ?? [])
+                return articleItems
+            } catch {
+                print(error)
+            }
+        }
+        return []
+    }
+
+    // MARK: - PAGINATION
     func getNews() async  -> [ArticleItem] {
+        print("API Call with Real Data")
        do {
            let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage)
 //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
@@ -63,5 +88,9 @@ class ArticleDataProvider {
            print(error)
            return []
        }
+    }
+
+    func getData() async ->  [ArticleItem] {
+       return await getNews()
     }
 }

@@ -17,40 +17,43 @@ struct ArticleListView: View {
             Form {
                 List(dataProvider.articleItems, id: \.id) { item in
 
-                           VStack {
-                               Spacer()
-                               Text(item.article.title ?? "No title")
-                                   .font(.title)
-                               Spacer()
-                               if let imageUrl = item.article.toImageUrl {
-                                   AsyncImage(url: URL(string: imageUrl)) { phase in
-                                       switch phase {
-                                       case .empty:
-                                           ProgressView()
-                                               .progressViewStyle(.circular)
-                                               .frame(width: 50, height: 50)
-                                       case .success(let image):
-                                           image
-                                               .resizable()
-                                               .scaledToFill()
-                                               .frame(width: 300, height: 200)
-                                               .cornerRadius(10)
+                    VStack {
+                        Spacer()
+                            .onAppear {
+                                print("View appeared")
+                            }
+                        Text(item.article.title ?? "No title")
+                            .font(.title)
+                        Spacer()
+                        if let imageUrl = item.article.toImageUrl {
+                            AsyncImage(url: URL(string: imageUrl)) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                        .progressViewStyle(.circular)
+                                        .frame(width: 50, height: 50)
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 300, height: 200)
+                                        .cornerRadius(10)
 
-                                       case .failure(let error):
-                                           Image(systemName: "exclamationmark.triangle.fill")
-                                       @unknown default:
-                                           EmptyView()
-                                       }
-                                   }
-                               }
-                               Spacer()
-                               Spacer()
-                               Text("\(item.article.publishedAt ?? .now)")
-                               Spacer()
-                               Spacer()
-                               Divider()
-                           }
-               }
+                                case .failure:
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+                        }
+                        Spacer()
+                        Spacer()
+                        Text("\(item.article.publishedAt ?? .now)")
+                        Spacer()
+                        Spacer()
+                        Divider()
+                    }
+                }
             }
             .navigationTitle("Total News: \(dataProvider.articleItems.count)")
         }
