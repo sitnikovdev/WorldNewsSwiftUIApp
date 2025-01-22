@@ -30,8 +30,14 @@ public struct ArticleAPIClient {
         return try response.ok.body.json
     }
 
+    typealias NewsCategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPayload
+    typealias GetTopHeadlines = Operations.GetTopHeadlines.Output.Ok.Body.JsonPayload
 
-    func getTopHeadline(page: Int = 1) async throws  -> Operations.GetTopHeadlines.Output.Ok.Body.JsonPayload {
+    func getTopHeadline(page: Int = 1,
+                        pageSize: Int  = 10,
+                        category: NewsCategoryQuery = .general,
+                        country: String = "us"
+    ) async throws  -> GetTopHeadlines {
 
         let apiKey = "2fc50c684ad04a7e8dcf413c0d6e20a8"
 
@@ -42,9 +48,9 @@ public struct ArticleAPIClient {
         )
         let response = try await client.getTopHeadlines(
                 query: .init(
-                    country: "us",
-                    category: .science,
-                    pageSize: 10,
+                    country: country,
+                    category: category,
+                    pageSize: pageSize,
                     page: page
                 ))
 

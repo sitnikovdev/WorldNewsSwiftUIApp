@@ -19,9 +19,6 @@ struct ArticleListView: View {
 
                     VStack {
                         Spacer()
-                            .onAppear {
-                                print("View appeared")
-                            }
                         Text(item.article.title ?? "No title")
                             .font(.title)
                         Spacer()
@@ -53,9 +50,14 @@ struct ArticleListView: View {
                         Spacer()
                         Divider()
                     }
+                    .onAppear {
+                        Task {
+                            await dataProvider.getNewsWithSkeletonView()
+                        }
+                    }
                 }
             }
-            .navigationTitle("Total News: \(dataProvider.articleItems.count)")
+            .navigationTitle("Total News: \(dataProvider.totalIResults())")
         }
     }
 }

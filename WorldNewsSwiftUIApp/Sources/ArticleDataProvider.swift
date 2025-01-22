@@ -15,6 +15,7 @@ class ArticleDataProvider {
 
     private var currentPage  = 1
     private var totalResults = 0
+    private var totalPages   = 10
 
     // MARK: - INIT
     init()  {
@@ -26,13 +27,13 @@ class ArticleDataProvider {
 
     // MARK: - MOCK DATA
     func setMockData() {
-         Article.mockData.forEach {
+        Article.mockData.forEach {
             articleItems.append(.init($0))
         }
     }
     func setMockData(from dto: [ArticleAPI]) {
-         dto.forEach {
-             articleItems.append(.init(Article.toArticle(dto: $0)))
+        dto.forEach {
+            articleItems.append(.init(Article.toArticle(dto: $0)))
         }
     }
 
@@ -69,28 +70,71 @@ class ArticleDataProvider {
         return []
     }
 
-    // MARK: - PAGINATION
-    func getNews() async  -> [ArticleItem] {
-        print("API Call with Real Data")
-       do {
-           let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage)
-//           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
-           totalResults = response.totalResults ?? 0
+    // MARK: - EXTENTION PAGINATION
+    func getNewsWithPaggination() async  -> [ArticleItem] {
+        print("API Call with Real Data | Paggination")
+        do {
 
-           let articlesAPI = response.articles ?? []
-           articlesAPI.forEach { articleItems.append(.init(Article.toArticle(dto: $0))) }
-           print("total results: \(totalResults)")
-           print("page: \(currentPage)")
-           print("item id: \(articleItems.last?.id ?? 0)")
-           currentPage += 1
-           return articleItems
+            for  page in 1...totalPages {
+
+                let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
+                                                                            pageSize: 10,
+                                                                            category: .technology,
+                                                                            country: "us"
+                )
+                //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
+                totalResults = response.totalResults ?? 0
+                totalPages = Int(ceil(Double(totalResults) / 10.0))
+
+                let articlesAPI = response.articles ?? []
+                articlesAPI.forEach { articleItems.append(.init(Article.toArticle(dto: $0))) }
+                print("total results: \(totalResults)")
+                print("page: \(currentPage)")
+                print("item id: \(articleItems.last?.id ?? 0)")
+                currentPage += 1
+                return articleItems
+            }
         } catch {
-           print(error)
-           return []
-       }
+            print(error)
+        }
+        return []
+    }
+
+    // MARK: - SKELETON PAGINATION
+    func getNewsWithSkeletonView() async  -> [ArticleItem] {
+        print("API Call with Real Data | Skeleton")
+        print("total pages: \(totalPages)")
+        do {
+            for  page in 1...totalPages {
+                print("page: \(page)")
+
+                let response =  try await ArticleAPIClient().getTopHeadline(page: page,
+                                                                            pageSize: 10,
+                                                                            category: .entertainment,
+                                                                            country: "us"
+                )
+                //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
+                totalResults = response.totalResults ?? 0
+                totalPages = Int(ceil(Double(totalResults) / 10.0))
+                print("total pages: \(totalPages)")
+
+                let articlesAPI = response.articles ?? []
+                articlesAPI.forEach { articleItems.append(.init(Article.toArticle(dto: $0))) }
+                print("last item id: \(articleItems.last?.id ?? 0)")
+                return articleItems
+            }
+        } catch {
+            print(error)
+        }
+        return []
     }
 
     func getData() async ->  [ArticleItem] {
-       return await getNews()
+        return await getNewsWithSkeletonView()
+    }
+
+    // MARK: - HELPER
+    func totalIResults() -> Int {
+        totalResults
     }
 }
