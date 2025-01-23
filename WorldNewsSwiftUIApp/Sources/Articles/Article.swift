@@ -48,8 +48,13 @@ struct Article {
         return URL(string: urlString)
     }
 
+    var articleURL: URL? {
+        guard let urlString = url else { return nil }
+        return URL(string: urlString)
+    }
+
     var dateCaption: String {
-        "\(source.name ?? "") ‧ \(relativeDateFormatter.localizedString(for: publishedAt, relativeTo: .now))"
+        "\(relativeDateFormatter.localizedString(for: publishedAt, relativeTo: .now))"
             .trimmingCharacters(in: .whitespaces)
     }
 

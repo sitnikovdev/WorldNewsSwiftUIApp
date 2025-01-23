@@ -43,6 +43,7 @@ struct ArticleView: View {
                 }
             }
             .frame(minHeight: 200, maxHeight: 300)
+            .frame(minWidth: 300, maxWidth: 350)
             .background(Color.gray.opacity(0.3))
             .clipped()
 
