@@ -25,7 +25,7 @@ struct PaginatedListView: View {
 
                 // Display the actual items
                 ForEach(viewModel.items, id: \.self) { item in
-                    Text(item)
+                    Text(item.article.title ?? "No title")
                         .padding()
                         .onAppear {
                             if !viewModel.items.isEmpty
@@ -34,7 +34,10 @@ struct PaginatedListView: View {
                                 && !viewModel.isLoading
                             {
                                 print("on appear: item == viewModel.items.last")
-                                viewModel.fetchData()
+//                                viewModel.fetchData()
+                                Task {
+                                    await viewModel.getNewsWithPaggination()
+                                }
                             }
                             progressViewId += 1
                         }
