@@ -21,13 +21,13 @@ struct Article {
 
     init(
         source: Source? = .init(),
-         author: String?,
-         title: String?,
-         description: String?,
-         url: String?,
-         imageUrl: String?,
-         publishedAt: Date?,
-         content: String?
+        author: String?,
+        title: String?,
+        description: String?,
+        url: String?,
+        imageUrl: String?,
+        publishedAt: Date?,
+        content: String?
     ) {
         self.source = source
         self.author = author
@@ -37,6 +37,11 @@ struct Article {
         self.toImageUrl = imageUrl
         self.publishedAt = publishedAt
         self.content = content
+    }
+
+    var imageURL: URL? {
+        guard let urlString = toImageUrl else { return nil }
+        return URL(string: urlString)
     }
 
     func toDTO() -> ArticleDTO {
@@ -53,7 +58,7 @@ struct Article {
     }
 
     static func toArticle(dto: ArticleDTO) -> Article {
-         return Article(
+        return Article(
             source: .init(),
             author: dto.author,
             title: dto.title,
@@ -66,7 +71,7 @@ struct Article {
     }
 
     static func toArticle(dto: ArticleAPI) -> Article {
-         return Article(
+        return Article(
             source: .init(),
             author: dto.author,
             title: dto.title,
@@ -78,7 +83,7 @@ struct Article {
         )
     }
 
-    
+
 
     static let mockData: [Article] = [
         Article(
