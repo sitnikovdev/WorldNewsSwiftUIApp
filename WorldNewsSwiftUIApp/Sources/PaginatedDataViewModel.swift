@@ -31,16 +31,17 @@ class PaginatedDataViewModel: ObservableObject {
             isLoading = true
             let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
                                                                         pageSize: 10,
-                                                                        category: .technology,
+                                                                        category: .science,
                                                                         country: "us"
             )
 
             let articlesAPI = response.articles ?? []
             articlesAPI.forEach { items.append(.init(Article.toArticle(dto: $0))) }
             currentPage += 1
-            // Simulate no more data on page 3
-            self.hasMoreData = self.currentPage < 5
 
+            let  totalResults = response.totalResults ?? 0
+            let totalPages = Int(ceil(Double(totalResults) / 10.0))
+            self.hasMoreData = self.currentPage <= totalPages
 
             self.isLoading = false
             self.currentPage += 1
