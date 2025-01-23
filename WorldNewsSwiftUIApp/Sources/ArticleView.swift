@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ArticleView: View {
-    let article: Article
     // MARK: - PROPERTIES
+    let article: Article
 
     // MARK: - BODY
     var body: some View {
@@ -42,7 +42,14 @@ struct ArticleView: View {
                     EmptyView()
                 }
             }
+            .frame(minHeight: 200, maxHeight: 300)
+            .background(Color.gray.opacity(0.3))
+            .clipped()
 
+// MARK: - TITLE
+            VStack {
+                Text(article.title)
+            }
 
 
             Spacer()

@@ -10,24 +10,24 @@ import Foundation
 typealias Source = Components.Schemas.Source
 struct Article {
 
-    let source: Source?
-    let author: String?
-    let title: String?
-    let description: String?
+    let source: Source
+    let author: String
+    let title: String
+    let description: String
     let url: String?
     let toImageUrl: String?
     let publishedAt: Date?
-    let content: String?
+    let content: String
 
     init(
-        source: Source? = .init(),
-        author: String?,
-        title: String?,
-        description: String?,
+        source: Source = .init(),
+        author: String,
+        title: String,
+        description: String,
         url: String?,
         imageUrl: String?,
         publishedAt: Date?,
-        content: String?
+        content: String
     ) {
         self.source = source
         self.author = author
@@ -60,26 +60,26 @@ struct Article {
     static func toArticle(dto: ArticleDTO) -> Article {
         return Article(
             source: .init(),
-            author: dto.author,
-            title: dto.title,
-            description: dto.description,
+            author: dto.author ?? "",
+            title: dto.title ?? "",
+            description: dto.description ?? "",
             url: dto.url,
             imageUrl: dto.urlToImage,
             publishedAt: dto.publishedAt,
-            content: dto.content
+            content: dto.content ?? ""
         )
     }
 
     static func toArticle(dto: ArticleAPI) -> Article {
         return Article(
             source: .init(),
-            author: dto.author,
-            title: dto.title,
-            description: dto.description,
+            author: dto.author ?? "",
+            title: dto.title ?? "",
+            description: dto.description ?? "",
             url: dto.url,
             imageUrl: dto.urlToImage,
             publishedAt: dto.publishedAt?.toDate(),
-            content: dto.content
+            content: dto.content ?? ""
         )
     }
 
