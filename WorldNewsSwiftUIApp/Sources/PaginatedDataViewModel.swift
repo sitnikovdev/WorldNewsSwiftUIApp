@@ -37,11 +37,15 @@ class PaginatedDataViewModel: ObservableObject {
 
             let articlesAPI = response.articles ?? []
             articlesAPI.forEach { items.append(.init(Article.toArticle(dto: $0))) }
-            currentPage += 1
 
             let  totalResults = response.totalResults ?? 0
             let totalPages = Int(ceil(Double(totalResults) / 10.0))
-            self.hasMoreData = self.currentPage <= totalPages
+            self.hasMoreData = self.currentPage < totalPages
+
+            print("Total pages: \(totalPages)")
+            print("Total results: \(totalResults)")
+            print("Total items: \(items.count)")
+            print("Current page: \(currentPage)")
 
             self.isLoading = false
             self.currentPage += 1
