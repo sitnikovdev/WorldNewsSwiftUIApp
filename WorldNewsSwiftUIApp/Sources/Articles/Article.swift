@@ -49,7 +49,7 @@ struct Article {
     }
 
     var dateCaption: String {
-        "\(source.name ?? "") - \(relativeDateFormatter.localizedString(for: publishedAt, relativeTo: .now))"
+        "\(source.name ?? "") ‧ \(relativeDateFormatter.localizedString(for: publishedAt, relativeTo: .now))"
             .trimmingCharacters(in: .whitespaces)
     }
 

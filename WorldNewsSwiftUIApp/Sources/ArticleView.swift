@@ -13,7 +13,7 @@ struct ArticleView: View {
 
     // MARK: - BODY
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 16) {
             // MARK: - IMAGE
             AsyncImage(url: article.imageURL) { phase in
                 switch phase {
@@ -46,7 +46,7 @@ struct ArticleView: View {
             .background(Color.gray.opacity(0.3))
             .clipped()
 
-            VStack {
+            VStack(alignment: .leading, spacing: 8) {
                 // MARK: - TITLE
                 Text(article.title)
                     .font(.headline)
@@ -57,6 +57,7 @@ struct ArticleView: View {
                     .font(.subheadline)
                     .lineLimit(2)
 
+                // MARK: - DATE
                 HStack {
                     Text(article.dateCaption)
                         .font(.caption)
@@ -64,7 +65,7 @@ struct ArticleView: View {
                     Spacer()
                 }
             }
-
+            .padding([.horizontal, .bottom])
         }
     }
 }
