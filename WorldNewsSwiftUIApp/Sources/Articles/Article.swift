@@ -7,7 +7,11 @@
 
 import Foundation
 
+
+fileprivate let relativeDateFormatter: RelativeDateTimeFormatter = .init()
 typealias Source = Components.Schemas.Source
+
+
 struct Article {
 
     let source: Source
@@ -16,7 +20,7 @@ struct Article {
     let description: String
     let url: String?
     let toImageUrl: String?
-    let publishedAt: Date?
+    let publishedAt: Date
     let content: String
 
     init(
@@ -26,7 +30,7 @@ struct Article {
         description: String,
         url: String?,
         imageUrl: String?,
-        publishedAt: Date?,
+        publishedAt: Date,
         content: String
     ) {
         self.source = source
@@ -42,6 +46,11 @@ struct Article {
     var imageURL: URL? {
         guard let urlString = toImageUrl else { return nil }
         return URL(string: urlString)
+    }
+
+    var dateCaption: String {
+        "\(source.name ?? "") - \(relativeDateFormatter.localizedString(for: publishedAt, relativeTo: .now))"
+            .trimmingCharacters(in: .whitespaces)
     }
 
     func toDTO() -> ArticleDTO {
@@ -65,7 +74,7 @@ struct Article {
             description: dto.description ?? "",
             url: dto.url,
             imageUrl: dto.urlToImage,
-            publishedAt: dto.publishedAt,
+            publishedAt: dto.publishedAt ?? .now,
             content: dto.content ?? ""
         )
     }
@@ -78,7 +87,7 @@ struct Article {
             description: dto.description ?? "",
             url: dto.url,
             imageUrl: dto.urlToImage,
-            publishedAt: dto.publishedAt?.toDate(),
+            publishedAt: dto.publishedAt?.toDate() ?? .now,
             content: dto.content ?? ""
         )
     }
@@ -119,7 +128,7 @@ struct Article {
             description: "Test description 4",
             url: "https://www.google.com",
             imageUrl: "https://via.placeholder.com/150",
-            publishedAt: "2021-01-01T00:00:00Z".toDate(),
+            publishedAt: "2021-01-01T00:00:00Z".toDate() ?? .now,
             content: "Test content 4"),
         Article(
             author: "Test author 5",
@@ -127,7 +136,7 @@ struct Article {
             description: "Test description 5",
             url: "https://www.google.com",
             imageUrl: "https://via.placeholder.com/150",
-            publishedAt: "2021-01-01T00:00:00Z".toDate(),
+            publishedAt: "2021-01-01T00:00:00Z".toDate() ?? .now,
             content:"Test content 5"
         ),
         Article(
@@ -136,7 +145,7 @@ struct Article {
             description: "Test description 6",
             url: "https://www.google.com",
             imageUrl: "https://via.placeholder.com/150",
-            publishedAt: "2021-01-01T00:00:00Z".toDate(),
+            publishedAt: "2021-01-01T00:00:00Z".toDate() ?? .now,
             content: "Test content 6"
         ),
         Article(
@@ -145,7 +154,7 @@ struct Article {
             description: "Test description 7",
             url: "https://www.google.com",
             imageUrl: "https://via.placeholder.com/150",
-            publishedAt: "2021-01-01T00:00:00Z".toDate(),
+            publishedAt: "2021-01-01T00:00:00Z".toDate() ?? .now,
             content: "Test content 7"
         ),
         Article(
@@ -154,7 +163,7 @@ struct Article {
             description: "Test description 8",
             url: "https://www.google.com",
             imageUrl: "https://via.placeholder.com/150",
-            publishedAt: "2021-01-01T00:00:00Z".toDate(),
+            publishedAt: "2021-01-01T00:00:00Z".toDate() ?? .now,
             content: "Test content 8"
         ),
         Article(
@@ -163,7 +172,7 @@ struct Article {
             description: "Test description 9",
             url: "https://www.google.com",
             imageUrl: "https://via.placeholder.com/150",
-            publishedAt: "2021-01-01T00:00:00Z".toDate(),
+            publishedAt: "2021-01-01T00:00:00Z".toDate() ?? .now,
             content: "Test content 9"
         ),
     ]

@@ -46,18 +46,25 @@ struct ArticleView: View {
             .background(Color.gray.opacity(0.3))
             .clipped()
 
-// MARK: - TITLE
             VStack {
+                // MARK: - TITLE
                 Text(article.title)
+                    .font(.headline)
+                    .lineLimit(3)
+
+                // MARK: - DESCRIPTION
+                Text(article.description)
+                    .font(.subheadline)
+                    .lineLimit(2)
+
+                HStack {
+                    Text(article.dateCaption)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                }
             }
 
-
-            Spacer()
-            Spacer()
-            Text("\(article.publishedAt ?? .now)")
-            Spacer()
-            Spacer()
-            Divider()
         }
     }
 }
