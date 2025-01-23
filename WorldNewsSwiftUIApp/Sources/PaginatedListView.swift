@@ -25,7 +25,7 @@ struct PaginatedListView: View {
 
                 // Display the actual items
                 ForEach(viewModel.items, id: \.self) { item in
-                    Text(item.article.title ?? "No title")
+                    ArticleView(item: item)
                         .padding()
                         .onAppear {
                             if !viewModel.items.isEmpty
