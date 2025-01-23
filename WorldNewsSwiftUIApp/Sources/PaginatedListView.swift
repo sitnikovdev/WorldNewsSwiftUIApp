@@ -34,7 +34,6 @@ struct PaginatedListView: View {
                                 && !viewModel.isLoading
                             {
                                 print("on appear: item == viewModel.items.last")
-//                                viewModel.fetchData()
                                 Task {
                                     await viewModel.getNewsWithPaggination()
                                 }
