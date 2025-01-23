@@ -30,8 +30,6 @@ struct PaginatedListView: View {
                         .onAppear {
                             if !viewModel.items.isEmpty
                                 && item == viewModel.items.last
-//                                && viewModel.hasMoreData
-//                                && !viewModel.isLoading
                             {
                                 print("on appear: item == viewModel.items.last")
                                 Task {
