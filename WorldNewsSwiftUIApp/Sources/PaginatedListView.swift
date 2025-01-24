@@ -19,9 +19,9 @@ struct PaginatedListView: View {
 
     // MARK: - BODY
     var body: some View {
-        if !viewModel.items.isEmpty {
+//        if !viewModel.items.isEmpty {
             NewsCategorySelectorView(selectedItem: $selectedItem)
-        }
+//        }
         NavigationView {
             List {
 
@@ -37,7 +37,7 @@ struct PaginatedListView: View {
                     ArticleView(article: item.article)
                         .padding()
                         .onAppear {
-                            title = "Science"
+                            title = selectedItem.rawValue.capitalized
                             if !viewModel.items.isEmpty
                                 && item == viewModel.items.last
                             {
@@ -62,16 +62,20 @@ struct PaginatedListView: View {
                 }
             }
             .onChange(of: selectedItem) { newValue in
+                self.title =  newValue.rawValue.capitalized
                 var newsCategory: NewsCategoryQuery
                 switch selectedItem {
                 case .science:
                     newsCategory = .science
-                case .technology:
-                    newsCategory = .technology
+                case .general:
+                    newsCategory = .general
                 case .health:
                     newsCategory = .health
                 }
-                self.title =  newValue.rawValue.capitalized
+                viewModel.items.removeAll()
+                Task {
+                    await viewModel.getNewsWithCategory(newsCategory)
+                }
             }
             .navigationTitle($title)
         }

@@ -7,12 +7,12 @@ extension Category {
             
         case .science:
             return "⚛️"
-        case .technology:
-            return "📡"
+//        case .technology:
+//            return "📡"
 //        case .entertainment:
 //            return "🎸"
-//        case .general:
-//            return "🌏"
+        case .general:
+            return "🌏"
 //        case .business:
 //            return "🪙"
 //        case .sports:
