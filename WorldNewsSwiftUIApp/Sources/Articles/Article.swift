@@ -191,3 +191,9 @@ extension String {
         return dateFormatter.date(from: self)
     }
 }
+
+extension Article: Identifiable {
+    var id: UUID  {
+        UUID()
+    }
+}

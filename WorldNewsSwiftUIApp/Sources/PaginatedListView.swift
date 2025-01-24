@@ -34,20 +34,22 @@ struct PaginatedListView: View {
 
                 // Display the actual items
                 ForEach(viewModel.items, id: \.self) { item in
-                    ArticleView(article: item.article)
-                        .padding()
-                        .onAppear {
-                            title = selectedItem.rawValue.capitalized
-                            if !viewModel.items.isEmpty
-                                && item == viewModel.items.last
-                            {
-                                print("on appear: item == viewModel.items.last")
-                                Task {
-                                    await viewModel.getNewsWithCategory(newsCategory)
+                    NavigationLink(destination: ArticleDetailView(article: item.article)) {
+                        ArticleView(article: item.article)
+                            .padding()
+                            .onAppear {
+                                title = selectedItem.rawValue.capitalized
+                                if !viewModel.items.isEmpty
+                                    && item == viewModel.items.last
+                                {
+                                    print("on appear: item == viewModel.items.last")
+                                    Task {
+                                        await viewModel.getNewsWithCategory(newsCategory)
+                                    }
                                 }
+                                progressViewId += 1
                             }
-                            progressViewId += 1
-                        }
+                    }
                 }
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .listRowSeparator(.hidden)
@@ -72,10 +74,18 @@ struct PaginatedListView: View {
                 case .health:
                     newsCategory = .health
                 }
+                print("-----------------------------------")
+                print("On Category Change: \(newsCategory)")
+                print("items: \(viewModel.items)")
+
+                print("remove items...")
                 viewModel.items.removeAll()
+                print("items: \(viewModel.items)")
                 Task {
+                    print("request to server...")
                     await viewModel.getNewsWithCategory(newsCategory)
                 }
+                print("items updated: \(viewModel.items)")
             }
             .navigationTitle($title)
         }
