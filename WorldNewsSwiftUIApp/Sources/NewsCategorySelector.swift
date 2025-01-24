@@ -87,7 +87,10 @@ public struct NewsCategorySelector<Data, Content> : View where Data: Hashable, C
         }
         .background(
             RoundedRectangle(cornerRadius: cornerRadius ?? 6.0)
-                .fill(backgroundColor)
+                .fill(backgroundColor,
+                    strokeBorder: borderColor ?? Color.clear,
+                    lineWidth: borderWidth ?? .zero
+                )
         )
     }
 }
