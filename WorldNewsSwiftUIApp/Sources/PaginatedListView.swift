@@ -15,14 +15,9 @@ struct PaginatedListView: View {
 
     // MARK: - BODY
     var body: some View {
-        NewsCategorySelectorView(selectedItem: selectedItem)
-//        Picker("Categories", selection: $selectedItem) {
-//            ForEach(Category.allCases, id: \.self) { category in
-//                Text(category.rawValue).tag(category)
-//            }
-//        }
-        .pickerStyle(SegmentedPickerStyle())
-        .onChange(of: selectedItem) { newValue in }
+        if !viewModel.items.isEmpty {
+            NewsCategorySelectorView(selectedItem: selectedItem)
+        }
         NavigationView {
             List {
 
@@ -61,7 +56,7 @@ struct PaginatedListView: View {
                     }
                 }
             }
-            .navigationTitle("Paginate Items: \(viewModel.items.count)")
+            .navigationTitle("\(selectedItem?.rawValue.capitalized ?? "All")")
         }
     }
 
