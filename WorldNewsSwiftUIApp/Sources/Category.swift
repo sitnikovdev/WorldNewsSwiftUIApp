@@ -16,9 +16,6 @@ enum Category: String, CaseIterable {
 //    case business
 //    case sports
 
-    var text: String {
-        return rawValue.capitalized
-    }
 }
 
 extension Category: Identifiable {

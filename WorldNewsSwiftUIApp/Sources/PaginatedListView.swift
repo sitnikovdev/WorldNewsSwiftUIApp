@@ -7,12 +7,15 @@
 
 import SwiftUI
 
+typealias NewsCategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPayload
+
 struct PaginatedListView: View {
     // MARK: - PROPRERTIES
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
     @StateObject private var viewModel = PaginatedDataViewModel()
     @State private var selectedItem : Category = .science
     @State private var title: String = "Loading..."
+    @State private var newsCategory: NewsCategoryQuery = .science
 
     // MARK: - BODY
     var body: some View {
@@ -40,7 +43,7 @@ struct PaginatedListView: View {
                             {
                                 print("on appear: item == viewModel.items.last")
                                 Task {
-                                    await viewModel.getNewsWithPaggination()
+                                    await viewModel.getNewsWithCategory(newsCategory)
                                 }
                             }
                             progressViewId += 1
@@ -59,6 +62,15 @@ struct PaginatedListView: View {
                 }
             }
             .onChange(of: selectedItem) { newValue in
+                var newsCategory: NewsCategoryQuery
+                switch selectedItem {
+                case .science:
+                    newsCategory = .science
+                case .technology:
+                    newsCategory = .technology
+                case .health:
+                    newsCategory = .health
+                }
                 self.title =  newValue.rawValue.capitalized
             }
             .navigationTitle($title)

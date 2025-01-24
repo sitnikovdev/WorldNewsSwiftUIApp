@@ -17,21 +17,22 @@ class PaginatedDataViewModel: ObservableObject {
 
     init() {
         Task {
-            await getNewsWithPaggination()
+            await getNewsWithCategory(.science)
         }
     }
 
     // MARK: - EXTENTION PAGINATION
-    func getNewsWithPaggination() async  -> [ArticleItem] {
+    func getNewsWithCategory(_ category: NewsCategoryQuery) async  -> [ArticleItem] {
+
         print("API Call with Real Data ")
         print("_________________________")
-        print("🚀 Start fetching data...")
+        print("🚀 Start fetching data with category: \(category)...")
         do {
 
             isLoading = true
             let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
                                                                         pageSize: 10,
-                                                                        category: .science,
+                                                                        category: category,
                                                                         country: "us"
             )
 
