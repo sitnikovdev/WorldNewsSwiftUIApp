@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - CATEGORIES SELECTOR
 struct NewsCategorySelectorView: View {
-   @State var selectedItem: Category? = .allCases.first
+    @Binding var selectedItem: Category 
 
     var body: some View {
 
@@ -25,7 +25,7 @@ struct NewsCategorySelectorView: View {
                         .frame(width: geo.size.width / CGFloat(Category.allCases.count))
                         .shadow(color: .black.opacity(0.1), radius: 2, x: 1, y: 1)
                         .animation(.spring().speed(1.5))
-                        .offset(x: geo.size.width / CGFloat(Category.allCases.count) * CGFloat(Category.allCases.firstIndex(of: selectedItem!)!), y: 0)
+                        .offset(x: geo.size.width / CGFloat(Category.allCases.count) * CGFloat(Category.allCases.firstIndex(of: selectedItem)!), y: 0)
                 }.frame(height: 64)
             }
         ) { item in

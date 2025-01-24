@@ -11,12 +11,13 @@ struct PaginatedListView: View {
     // MARK: - PROPRERTIES
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
     @StateObject private var viewModel = PaginatedDataViewModel()
-    @State private var selectedItem : Category? = .science
+    @State private var selectedItem : Category = .science
+    @State private var title: String = ""
 
     // MARK: - BODY
     var body: some View {
         if !viewModel.items.isEmpty {
-            NewsCategorySelectorView(selectedItem: selectedItem)
+            NewsCategorySelectorView(selectedItem: $selectedItem)
         }
         NavigationView {
             List {
@@ -56,7 +57,10 @@ struct PaginatedListView: View {
                     }
                 }
             }
-            .navigationTitle("\(selectedItem?.rawValue.capitalized ?? "All")")
+            .onChange(of: selectedItem) { newValue in
+                self.title =  newValue.rawValue.capitalized
+            }
+            .navigationTitle($title)
         }
     }
 
