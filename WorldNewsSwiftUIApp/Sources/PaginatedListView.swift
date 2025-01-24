@@ -12,7 +12,7 @@ struct PaginatedListView: View {
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
     @StateObject private var viewModel = PaginatedDataViewModel()
     @State private var selectedItem : Category = .science
-    @State private var title: String = ""
+    @State private var title: String = "Loading..."
 
     // MARK: - BODY
     var body: some View {
@@ -34,6 +34,7 @@ struct PaginatedListView: View {
                     ArticleView(article: item.article)
                         .padding()
                         .onAppear {
+                            title = "Science"
                             if !viewModel.items.isEmpty
                                 && item == viewModel.items.last
                             {
