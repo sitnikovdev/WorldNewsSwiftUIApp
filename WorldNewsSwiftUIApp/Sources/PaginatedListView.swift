@@ -15,41 +15,21 @@ struct PaginatedListView: View {
 
     // MARK: - BODY
     var body: some View {
+        NewsCategorySelectorView(selectedItem: selectedItem)
+//        Picker("Categories", selection: $selectedItem) {
+//            ForEach(Category.allCases, id: \.self) { category in
+//                Text(category.rawValue).tag(category)
+//            }
+//        }
+        .pickerStyle(SegmentedPickerStyle())
+        .onChange(of: selectedItem) { newValue in }
         NavigationView {
             List {
+
                 // Display skeleton loader if items are not loadded
                 if viewModel.items.isEmpty && viewModel.isLoading {
                     ForEach(0..<5, id: \.self) { _ in
                         SkeletonLoaderView()
-                    }
-                }
-                Text("Custom Picker: Vertical Items")
-                NewsCategorySelector(
-                    Category.allCases,
-                    selection: selectedItem,
-                    indicatorBuilder: {
-                        GeometryReader { geo in
-                            Rectangle()
-                                .foregroundColor(.white)
-                                .cornerRadius(6.0)
-                                .padding(1)
-                                .frame(width: geo.size.width / CGFloat(Category.allCases.count))
-                                .shadow(color: .black.opacity(0.1), radius: 2, x: 1, y: 1)
-                                .animation(.spring().speed(1.5))
-                                .offset(x: geo.size.width / CGFloat(Category.allCases.count) * CGFloat(Category.allCases.firstIndex(of: selectedItem!)!), y: 0)
-                        }.frame(height: 64)
-                    }
-                ) { item in
-                    CategoryItem(
-                        item: item,
-                        isSelected: selectedItem == item
-                    )
-                    .padding(.vertical, 8)
-
-                    .onTapGesture {
-                        withAnimation(.easeInOut(duration: 0.150)) {
-                            selectedItem = item
-                        }
                     }
                 }
 

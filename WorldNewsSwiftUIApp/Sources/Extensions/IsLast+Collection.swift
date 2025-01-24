@@ -1,10 +1,3 @@
-//
-//  IsLast+Collection.swift
-//  Paging_16_12
-//
-//  Created by Nikolai Baklanov on 16.12.2024.
-//
-
 import Foundation
 
 extension RandomAccessCollection where Self.Element: Identifiable {
