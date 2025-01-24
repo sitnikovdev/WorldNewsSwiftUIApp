@@ -1,10 +1,3 @@
-//
-//  Shape+FillBorder.swift
-//  
-//
-//  Created by Alejandro Ulate on 1/1/23.
-//
-
 import Foundation
 import SwiftUI
 
