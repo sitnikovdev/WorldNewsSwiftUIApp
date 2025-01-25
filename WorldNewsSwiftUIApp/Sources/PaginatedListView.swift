@@ -12,7 +12,7 @@ typealias NewsCategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPay
 struct PaginatedListView: View {
     // MARK: - PROPRERTIES
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
-    @StateObject private var viewModel = PaginatedDataViewModel()
+    @StateObject private var viewModel = PaginatedDataViewModel(category: .science, isLocal: false, onlyAPI: false, withDelay: false)
     @State private var selectedItem : Category = .science
     @State private var title: String = "Loading..."
     @State private var newsCategory: NewsCategoryQuery = .science
@@ -44,12 +44,7 @@ struct PaginatedListView: View {
                                 {
                                     print("on appear: item == viewModel.items.last")
                                     Task {
-                                        await viewModel.getNewsWithCategory(
-                                            category: newsCategory,
-                                            isLocal: false,
-                                            onlyAPI: false,
-                                            withDelay: false
-                                        )
+                                        await viewModel.getNewsWithCategory()
                                     }
                                 }
                                 progressViewId += 1
@@ -84,16 +79,12 @@ struct PaginatedListView: View {
                 print("items: \(viewModel.items)")
 
                 print("remove items...")
+                viewModel.category = newsCategory
                 viewModel.items.removeAll()
                 print("items: \(viewModel.items)")
                 Task {
                     print("request to server...")
-                    await viewModel.getNewsWithCategory(
-                        category: newsCategory,
-                        isLocal: false,
-                        onlyAPI: false,
-                        withDelay: false
-                    )
+                    await viewModel.getNewsWithCategory()
                 }
                 print("items updated: \(viewModel.items)")
             }

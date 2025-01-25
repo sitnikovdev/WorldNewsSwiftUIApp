@@ -13,16 +13,30 @@ class PaginatedDataViewModel: ObservableObject {
     @Published var items: [ArticleItem] = []
     @Published var isLoading = false
     @Published var hasMoreData = true
+
+    var category: NewsCategoryQuery = .science
+
+    private var isLocal: Bool = false
+    private var onlyAPI: Bool = false
+    private var withDelay: Bool = false
     private var currentPage = 1
 
-    init() {
+    init(category: NewsCategoryQuery,
+         isLocal: Bool,
+         onlyAPI: Bool,
+         withDelay: Bool
+    ) {
+        self.category = category
+        self.isLocal = isLocal
+        self.onlyAPI = onlyAPI
+        self.withDelay = withDelay
         Task {
-            await getNewsWithCategory(category: .science, isLocal: false, onlyAPI: false, withDelay: false)
+            await getNewsWithCategory()
         }
     }
 
     // MARK: - EXTENTION PAGINATION
-    func getNewsWithCategory(category: NewsCategoryQuery, isLocal: Bool, onlyAPI: Bool, withDelay: Bool) async  -> [ArticleItem] {
+    func getNewsWithCategory() async  -> [ArticleItem] {
 
         print("API Call with Real Data ")
         print("_________________________")
