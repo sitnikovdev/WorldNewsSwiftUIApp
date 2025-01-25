@@ -17,12 +17,12 @@ class PaginatedDataViewModel: ObservableObject {
 
     init() {
         Task {
-            await getNewsWithCategory(.science)
+            await getNewsWithCategory(category: .science, isLocal: false, onlyAPI: false, withDelay: false)
         }
     }
 
     // MARK: - EXTENTION PAGINATION
-    func getNewsWithCategory(_ category: NewsCategoryQuery) async  -> [ArticleItem] {
+    func getNewsWithCategory(category: NewsCategoryQuery, isLocal: Bool, onlyAPI: Bool, withDelay: Bool) async  -> [ArticleItem] {
 
         print("API Call with Real Data ")
         print("_________________________")
@@ -33,7 +33,10 @@ class PaginatedDataViewModel: ObservableObject {
             let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
                                                                         pageSize: 10,
                                                                         category: category,
-                                                                        country: "us"
+                                                                        country: "us",
+                                                                        isLocal: isLocal,
+                                                                        withDelay: withDelay,
+                                                                        onlyAPI: onlyAPI
             )
 
             let articlesAPI = response.articles ?? []

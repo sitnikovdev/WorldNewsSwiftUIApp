@@ -5,6 +5,7 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:8080/news
+  - url: http://192.168.0.27:8080/news
 
 paths:
   /everything:
@@ -127,6 +128,27 @@ paths:
         - ApiKeyAuth: []
       summary: Get the latest top headlines
       parameters:
+        - name: local
+          in: query
+          description: The type of request. If value true, then only data from the DB will be fetched. If is false - data from API and updated data from DB will be returned.
+          required: false
+          schema:
+            type: boolean
+            example: true
+        - name: onlyAPI
+          in: query
+          description: The type of request. If value true, then only data from the outside API will be fetched. No DB call will be executed.
+          required: false
+          schema:
+            type: boolean
+            example: true
+        - name: withDelay
+          in: query
+          description: Set a delay before sending the request (3 seconds).
+          required: false
+          schema:
+            type: boolean
+            example: true
         - name: country
           in: query
           description: "The 2-letter ISO 3166-1 code of the country you want to get headlines for. Possible options: us. Note: you can't mix this param with the sources param."

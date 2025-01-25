@@ -55,15 +55,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4D3EA653-0DB9-4B80-A50E-ADCFA3E92587"
+            uuid = "7160766B-CFAD-4A2B-870F-8B387F788985"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WorldNewsSwiftUIApp/Sources/PaginatedListView.swift"
+            filePath = "WorldNewsSwiftUIApp/Sources/ArticleDetailView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>

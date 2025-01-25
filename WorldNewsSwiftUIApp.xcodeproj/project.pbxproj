@@ -15,9 +15,22 @@
 		1A4DF1082D2F0DDF00D3B860 /* WorldNewsSwiftUIApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorldNewsSwiftUIApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1A326A9E2D4409C2001EFCD2 /* Exceptions for "WorldNewsSwiftUIApp" folder in "WorldNewsSwiftUIApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1A4DF1072D2F0DDF00D3B860 /* WorldNewsSwiftUIApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1A4DF10A2D2F0DDF00D3B860 /* WorldNewsSwiftUIApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1A326A9E2D4409C2001EFCD2 /* Exceptions for "WorldNewsSwiftUIApp" folder in "WorldNewsSwiftUIApp" target */,
+			);
 			path = WorldNewsSwiftUIApp;
 			sourceTree = "<group>";
 		};
@@ -286,6 +299,7 @@
 				EAGER_COMPILATION_ALLOW_SCRIPTS = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorldNewsSwiftUIApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -316,6 +330,7 @@
 				EAGER_COMPILATION_ALLOW_SCRIPTS = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorldNewsSwiftUIApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

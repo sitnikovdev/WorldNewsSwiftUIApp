@@ -80,7 +80,9 @@ class ArticleDataProvider {
                 let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
                                                                             pageSize: 10,
                                                                             category: .technology,
-                                                                            country: "us"
+                                                                            country: "us",
+                                                                            isLocal: false,
+                                                                            withDelay: false, onlyAPI: false
                 )
                 //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
                 totalResults = response.totalResults ?? 0
@@ -106,21 +108,24 @@ class ArticleDataProvider {
         do {
             print("page: \(currentPage)")
 
-                let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
-                                                                            pageSize: 10,
-                                                                            category: .science,
-                                                                            country: "us"
-                )
-                //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
-                totalResults = response.totalResults ?? 0
-                totalPages = Int(ceil(Double(totalResults) / 10.0))
-                print("total pages: \(totalPages)")
+            let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
+                                                                        pageSize: 10,
+                                                                        category: .science,
+                                                                        country: "us",
+                                                                        isLocal: false,
+                                                                        withDelay: false,
+                                                                        onlyAPI: false
+            )
+            //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
+            totalResults = response.totalResults ?? 0
+            totalPages = Int(ceil(Double(totalResults) / 10.0))
+            print("total pages: \(totalPages)")
 
-                let articlesAPI = response.articles ?? []
-                articlesAPI.forEach { articleItems.append(.init(Article.toArticle(dto: $0))) }
-                print("last item id: \(articleItems.last?.id ?? 0)")
-                currentPage += 1
-                return articleItems
+            let articlesAPI = response.articles ?? []
+            articlesAPI.forEach { articleItems.append(.init(Article.toArticle(dto: $0))) }
+            print("last item id: \(articleItems.last?.id ?? 0)")
+            currentPage += 1
+            return articleItems
         } catch {
             print(error)
         }

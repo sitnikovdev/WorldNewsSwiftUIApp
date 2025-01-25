@@ -44,7 +44,12 @@ struct PaginatedListView: View {
                                 {
                                     print("on appear: item == viewModel.items.last")
                                     Task {
-                                        await viewModel.getNewsWithCategory(newsCategory)
+                                        await viewModel.getNewsWithCategory(
+                                            category: newsCategory,
+                                            isLocal: false,
+                                            onlyAPI: false,
+                                            withDelay: false
+                                        )
                                     }
                                 }
                                 progressViewId += 1
@@ -83,7 +88,12 @@ struct PaginatedListView: View {
                 print("items: \(viewModel.items)")
                 Task {
                     print("request to server...")
-                    await viewModel.getNewsWithCategory(newsCategory)
+                    await viewModel.getNewsWithCategory(
+                        category: newsCategory,
+                        isLocal: false,
+                        onlyAPI: false,
+                        withDelay: false
+                    )
                 }
                 print("items updated: \(viewModel.items)")
             }
