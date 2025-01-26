@@ -4,8 +4,10 @@ info:
   description: API for retrieving the latest news articles.
   version: 1.0.0
 servers:
+  - url: https://worldnews-server-production.up.railway.app/news
+    description: "URL API on Railway"
   - url: http://localhost:8080/news
-  - url: http://192.168.0.27:8080/news
+  - url: https://newsapi.org/v2
 
 paths:
   /everything:
@@ -134,7 +136,7 @@ paths:
           required: false
           schema:
             type: boolean
-            example: true
+            example: false
         - name: onlyAPI
           in: query
           description: The type of request. If value true, then only data from the outside API will be fetched. No DB call will be executed.
@@ -148,13 +150,14 @@ paths:
           required: false
           schema:
             type: boolean
-            example: true
+            example: false
         - name: country
           in: query
           description: "The 2-letter ISO 3166-1 code of the country you want to get headlines for. Possible options: us. Note: you can't mix this param with the sources param."
           required: false
           schema:
             type: string
+            default: us
             example: us
         - name: q
           in: query
@@ -162,7 +165,7 @@ paths:
           required: false
           schema:
             type: string
-            example: bitcoin
+            example:
         - name: category
           in: query
           description: "The category you want to get headlines for. Possible options: business, entertainment, general, health, science, sports, technology."
@@ -177,14 +180,13 @@ paths:
                 - science
                 - sports
                 - technology
-          example: "technology"
+          example: "science"
         - name: sources
           in: query
           description: "A comma-separated string of identifiers for the news sources or blogs you want headlines from. Use the /top-headlines/sources endpoint to locate these identifiers."
           required: false
           schema:
               type: string
-              example: "bbc-news,techcrunch"
         - name: pageSize
           in: query
           description: The number of results to return per page
@@ -293,5 +295,3 @@ components:
 
 security:
   - ApiKeyAuth: []
-
-
