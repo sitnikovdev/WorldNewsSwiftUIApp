@@ -21,15 +21,7 @@ class PaginatedDataViewModel: ObservableObject {
     private var withDelay: Bool = false
     private var currentPage = 1
 
-    init(category: NewsCategoryQuery,
-         isLocal: Bool,
-         onlyAPI: Bool,
-         withDelay: Bool
-    ) {
-        self.category = category
-        self.isLocal = isLocal
-        self.onlyAPI = onlyAPI
-        self.withDelay = withDelay
+    init() {
         Task {
             await getNewsWithCategory()
         }
