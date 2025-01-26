@@ -12,7 +12,12 @@ typealias NewsCategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPay
 struct PaginatedListView: View {
     // MARK: - PROPRERTIES
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
-    @StateObject private var viewModel = PaginatedDataViewModel(category: .science, isLocal: false, onlyAPI: false, withDelay: false)
+    @StateObject private var viewModel =
+    PaginatedDataViewModel(category: .science,
+                            isLocal: false,
+                            onlyAPI: true,
+                            withDelay: false
+    )
     @State private var selectedItem : Category = .science
     @State private var title: String = "Loading..."
     @State private var newsCategory: NewsCategoryQuery = .science
