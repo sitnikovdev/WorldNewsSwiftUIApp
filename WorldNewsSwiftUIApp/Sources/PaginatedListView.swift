@@ -20,9 +20,7 @@ struct PaginatedListView: View {
 
     // MARK: - BODY
     var body: some View {
-//        if !viewModel.items.isEmpty {
-            NewsCategorySelectorView(selectedItem: $selectedItem)
-//        }
+        NewsCategorySelectorView(selectedItem: $selectedItem)
         NavigationView {
             List {
 
