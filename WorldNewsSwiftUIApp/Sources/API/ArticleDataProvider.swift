@@ -81,8 +81,8 @@ class ArticleDataProvider {
                                                                             pageSize: 10,
                                                                             category: .technology,
                                                                             country: "us",
-                                                                            isLocal: false,
-                                                                            withDelay: false, onlyAPI: false
+                                                                            withDelay: false,
+                                                                            isOnline: false
                 )
                 //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
                 totalResults = response.totalResults ?? 0
@@ -112,9 +112,8 @@ class ArticleDataProvider {
                                                                         pageSize: 10,
                                                                         category: .science,
                                                                         country: "us",
-                                                                        isLocal: false,
                                                                         withDelay: false,
-                                                                        onlyAPI: false
+                                                                        isOnline: false
             )
             //           let response =  try await WorldNewsClient().getNewsResponse(page: currentPage)
             totalResults = response.totalResults ?? 0

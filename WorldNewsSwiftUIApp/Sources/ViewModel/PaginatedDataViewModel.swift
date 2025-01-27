@@ -17,7 +17,7 @@ class PaginatedDataViewModel: ObservableObject {
     var category: NewsCategoryQuery = .science
 
     private var isLocal: Bool = false
-    private var onlyAPI: Bool = true
+    private var isOnline: Bool = true
     private var withDelay: Bool = false
     private var currentPage = 1
 
@@ -40,9 +40,8 @@ class PaginatedDataViewModel: ObservableObject {
                                                                         pageSize: 10,
                                                                         category: category,
                                                                         country: "us",
-                                                                        isLocal: isLocal,
                                                                         withDelay: withDelay,
-                                                                        onlyAPI: onlyAPI
+                                                                        isOnline:  isOnline
             )
 
             let articlesAPI = response.articles ?? []
