@@ -27,9 +27,9 @@ struct QueryParameters {
 class ArticleViewModel: ObservableObject {
     // MARK: - PROPERTIES
     @Published var category: Category = .science
-    @Published var state: CurrentState<ArticleItem> = .empty
+    @Published var state: CurrentState<Article> = .empty
 
-    @Published var articleItems: [ArticleItem] = []
+    @Published var articleItems: [Article] = []
 
     @Published var isLoading = false
     @Published var hasMoreData = true
@@ -44,7 +44,7 @@ class ArticleViewModel: ObservableObject {
     )
 
 
-    init(articles: [ArticleItem]? = nil,
+    init(articles: [Article]? = nil,
          category: Category = .science
     ) {
         if let articles = articles {
@@ -73,7 +73,7 @@ class ArticleViewModel: ObservableObject {
 
 
     // MARK: - RETURN ARTICLE FROM API CALL
-    func fetch() async throws -> [ArticleItem] {
+    func fetch() async throws -> [Article] {
 
        print("API Call with Real Data ")
        print("_________________________")
@@ -90,8 +90,8 @@ class ArticleViewModel: ObservableObject {
            )
 
            let articlesAPI = response.articles ?? []
-           var articleItems: [ArticleItem] = []
-           articlesAPI.forEach { articleItems.append(.init($0)) }
+           var articleItems: [Article] = []
+           articlesAPI.forEach { articleItems.append($0) }
 
            let  totalResults = response.totalResults ?? 0
            let totalPages = Int(ceil(Double(totalResults) / 10.0))
@@ -110,7 +110,7 @@ class ArticleViewModel: ObservableObject {
    }
 
     // MARK: - EXTENTION PAGINATION
-     func getNewsWithCategory() async throws -> [ArticleItem] {
+     func getNewsWithCategory() async throws -> [Article] {
 
         print("API Call with Real Data ")
         print("_________________________")
@@ -127,7 +127,7 @@ class ArticleViewModel: ObservableObject {
             )
 
             let articlesAPI = response.articles ?? []
-            articlesAPI.forEach { articleItems.append(.init($0)) }
+            articlesAPI.forEach { articleItems.append($0) }
 
             let  totalResults = response.totalResults ?? 0
             let totalPages = Int(ceil(Double(totalResults) / 10.0))

@@ -32,8 +32,8 @@ struct ArticleListView: View {
 
                 // Display the actual items
                 ForEach(viewModel.articleItems, id: \.self) { item in
-                    NavigationLink(destination: ArticleDetailView(article: item.article)) {
-                        ArticleView(article: item.article)
+                    NavigationLink(destination: ArticleDetailView(article: item)) {
+                        ArticleView(article: item)
                             .padding()
                             .onAppear {
                                 title = newsCategory.rawValue.capitalized
