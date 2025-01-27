@@ -13,9 +13,9 @@ class Helper {
 struct ArticleItem: Identifiable, Hashable {
 
     let id: Int
-    var article: ArticleDTO
+    var article: Article
 
-    init(_ article: ArticleDTO) {
+    init(_ article: Article) {
         self.id = Helper.lastId + 1
         self.article = article
         Helper.lastId += 1

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ArticleView: View {
     // MARK: - PROPERTIES
-    let article: ArticleDTO
+    let article: Article
 
     // MARK: - BODY
     var body: some View {

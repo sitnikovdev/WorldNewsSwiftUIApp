@@ -10,7 +10,7 @@ import Foundation
 
 fileprivate let relativeDateFormatter: RelativeDateTimeFormatter = .init()
 
-typealias ArticleDTO = Components.Schemas.Article
+typealias Article = Components.Schemas.Article
 typealias Source = Components.Schemas.Source
 typealias CategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPayload
 
@@ -25,7 +25,7 @@ extension String {
 }
 
 
-extension ArticleDTO: Identifiable {
+extension Article: Identifiable {
     var id: UUID  {
         UUID()
     }
