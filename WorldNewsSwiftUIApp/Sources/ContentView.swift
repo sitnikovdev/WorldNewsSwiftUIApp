@@ -10,27 +10,24 @@ import Foundation
 
 struct ContentView: View {
     @StateObject private var viewModel = ArticleViewModel()
-    @State private var newsCategory: Category = .science
     @State private var title: String = "Loading..."
 
     var body: some View {
-        CategorySelectorView(selectedItem: $newsCategory)
+        CategorySelectorView(selectedItem: $viewModel.category)
         NavigationView {
             List {
                 ArticleListView()
-                    .onChange(of: newsCategory) { newValue in
-                        self.title =  newValue.rawValue.capitalized
-
-                        viewModel.category = newsCategory
-                        Task {
-                            try await viewModel.getNewsWithCategory()
-                        }
-                    }
-                    .navigationTitle($title)
+                    .task(id: viewModel.category, loadArticles)
+                    .navigationTitle(viewModel.category.rawValue)
                     .navigationBarTitleDisplayMode(.inline)
             }
         }
 
+    }
+
+    @Sendable
+    func loadArticles() async {
+        await viewModel.loadArticles()
     }
 }
 
