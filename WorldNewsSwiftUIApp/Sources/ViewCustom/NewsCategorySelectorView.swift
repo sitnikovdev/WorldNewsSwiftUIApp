@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// MARK: - CATEGORIES SELECTOR
 struct NewsCategorySelectorView: View {
     @Binding var selectedItem: Category 
 
