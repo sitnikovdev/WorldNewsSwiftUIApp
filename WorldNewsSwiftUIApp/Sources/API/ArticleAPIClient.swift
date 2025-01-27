@@ -11,21 +11,6 @@ public struct ArticleAPIClient {
 
     public init() {}
 
-    func getNewsResponse(page: Int = 1) async throws  -> Operations.GetLatestNews.Output.Ok.Body.JsonPayload {
-
-        let client = Client(
-            serverURL: try Servers.Server1.url(),
-            transport: URLSessionTransport()
-        )
-        let response = try await client.getLatestNews(
-                query: .init(
-                    q: "Apple Vision",
-                    pageSize: 10,
-                    page: page
-                ))
-
-        return try response.ok.body.json
-    }
 
     typealias NewsCategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPayload
     typealias GetTopHeadlines = Operations.GetTopHeadlines.Output.Ok.Body.JsonPayload
@@ -44,7 +29,7 @@ public struct ArticleAPIClient {
         )
         let response = try await client.getTopHeadlines(
                 query: .init(
-                    onlyAPI: isOnline,
+                    isOnline: isOnline,
                     withDelay: false,
                     country: country,
                     category: category,

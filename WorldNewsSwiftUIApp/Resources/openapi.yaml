@@ -139,7 +139,7 @@ paths:
           schema:
             type: boolean
             example: false
-        - name: onlyAPI
+        - name: isOnline
           in: query
           description: The type of request. If value true, then only data from the outside API will be fetched. No DB call will be executed.
           required: false
