@@ -9,7 +9,7 @@ import SwiftUI
 
 typealias NewsCategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPayload
 
-struct PaginatedListView: View {
+struct ArticleListView: View {
     // MARK: - PROPRERTIES
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
     @StateObject private var viewModel =
@@ -97,5 +97,5 @@ struct PaginatedListView: View {
 
 
 #Preview {
-    PaginatedListView()
+    ArticleListView()
 }
