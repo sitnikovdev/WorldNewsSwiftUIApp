@@ -11,17 +11,11 @@ import SwiftUI
 struct ArticleListView: View {
     // MARK: - PROPRERTIES
     @StateObject private var viewModel = ArticleViewModel()
-    @State private var newsCategory: Category = .science
-
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
-    @State private var title: String = "Loading..."
 
 
     // MARK: - BODY
     var body: some View {
-        CategorySelectorView(selectedItem: $newsCategory)
-        NavigationView {
-            List {
 
                 // Display skeleton loader if items are not loadded
                 if viewModel.articleItems.isEmpty && viewModel.isLoading {
@@ -36,7 +30,6 @@ struct ArticleListView: View {
                         ArticleView(article: item)
                             .padding()
                             .onAppear {
-                                title = newsCategory.rawValue.capitalized
                                 if !viewModel.articleItems.isEmpty
                                     && item == viewModel.articleItems.last
                                 {
@@ -60,22 +53,10 @@ struct ArticleListView: View {
                     }
                 }
             }
-            .onChange(of: newsCategory) { newValue in
-                self.title =  newValue.rawValue.capitalized
 
-                viewModel.category = newsCategory
-                Task {
-                    try await viewModel.getNewsWithCategory()
-                }
-                print("items updated: \(viewModel.articleItems)")
-            }
-            .navigationTitle($title)
-            .navigationBarTitleDisplayMode(.inline)
-
-        }
     }
 
-}
+
 
 
 #Preview {
