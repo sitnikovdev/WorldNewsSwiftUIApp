@@ -27,10 +27,11 @@ struct ArticleListView: View {
         //                    }
         //                }
 
-        List {
-            // Display the actual items
-            ForEach(articles, id: \.id) { item in
-//                NavigationLink(destination: ArticleDetailView(article: item)) {
+        NavigationView {
+            List {
+                // Display the actual items
+                ForEach(articles, id: \.id) { item in
+                                    NavigationLink(destination: ArticleDetailView(article: item)) {
                     ArticleItemView(article: item)
                     //                            .onAppear {
                     //                                if !articles.isEmpty
@@ -42,13 +43,14 @@ struct ArticleListView: View {
                     //                                }
                     //                                progressViewId += 1
                     //                            }
-//                }
-            }
-            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-            .listRowSeparator(.hidden)
+                                    }
+                }
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowSeparator(.hidden)
 
+            }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
         // TODO: - FIX PROGRESS VIEW
         //                if viewModel.isLoading {
         //                    VStack  {
