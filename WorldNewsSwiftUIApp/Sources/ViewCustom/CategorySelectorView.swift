@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct NewsCategorySelectorView: View {
+struct CategorySelectorView: View {
     @Binding var selectedItem: Category 
 
     var body: some View {
 
-        NewsCategorySelector(
+        CategorySelector(
             Category.allCases,
             selection: selectedItem,
             indicatorBuilder: {

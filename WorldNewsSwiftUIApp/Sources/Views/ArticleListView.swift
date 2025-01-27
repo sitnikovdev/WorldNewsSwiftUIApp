@@ -13,14 +13,14 @@ struct ArticleListView: View {
     // MARK: - PROPRERTIES
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
     @StateObject private var viewModel =
-    PaginatedDataViewModel()
+    ArticleViewModel()
     @State private var selectedItem : Category = .science
     @State private var title: String = "Loading..."
     @State private var newsCategory: NewsCategoryQuery = .science
 
     // MARK: - BODY
     var body: some View {
-        NewsCategorySelectorView(selectedItem: $selectedItem)
+        CategorySelectorView(selectedItem: $selectedItem)
         NavigationView {
             List {
 

@@ -1,13 +1,13 @@
 import SwiftUI
 
-public struct NewsCategorySelector<Data, Content> : View where Data: Hashable, Content: View {
+public struct CategorySelector<Data, Content> : View where Data: Hashable, Content: View {
     public let sources: [Data]
     public let selection: Data?
     private let itemBuilder: (Data) -> Content
     
     @State private var backgroundColor: Color = Color.black.opacity(0.05)
     
-    func pickerBackgroundColor(_ color: Color) -> NewsCategorySelector {
+    func pickerBackgroundColor(_ color: Color) -> CategorySelector {
         var view = self
         view._backgroundColor = State(initialValue: color)
         return view
@@ -15,7 +15,7 @@ public struct NewsCategorySelector<Data, Content> : View where Data: Hashable, C
     
     @State private var cornerRadius: CGFloat?
     
-    func cornerRadius(_ cornerRadius: CGFloat) -> NewsCategorySelector {
+    func cornerRadius(_ cornerRadius: CGFloat) -> CategorySelector {
         var view = self
         view._cornerRadius = State(initialValue: cornerRadius)
         return view
@@ -23,7 +23,7 @@ public struct NewsCategorySelector<Data, Content> : View where Data: Hashable, C
     
     @State private var borderColor: Color?
     
-    func borderColor(_ borderColor: Color) -> NewsCategorySelector {
+    func borderColor(_ borderColor: Color) -> CategorySelector {
         var view = self
         view._borderColor = State(initialValue: borderColor)
         return view
@@ -31,7 +31,7 @@ public struct NewsCategorySelector<Data, Content> : View where Data: Hashable, C
     
     @State private var borderWidth: CGFloat?
     
-    func borderWidth(_ borderWidth: CGFloat) -> NewsCategorySelector {
+    func borderWidth(_ borderWidth: CGFloat) -> CategorySelector {
         var view = self
         view._borderWidth = State(initialValue: borderWidth)
         return view

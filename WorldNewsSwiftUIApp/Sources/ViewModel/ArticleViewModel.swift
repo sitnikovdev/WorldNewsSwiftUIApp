@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class PaginatedDataViewModel: ObservableObject {
+class ArticleViewModel: ObservableObject {
     // MARK: - PROPERTIES
     @Published var items: [ArticleItem] = []
     @Published var isLoading = false
