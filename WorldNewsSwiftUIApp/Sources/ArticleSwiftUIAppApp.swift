@@ -10,13 +10,11 @@ import SwiftUI
 @main
 struct ArticleSwiftUIAppApp: App {
     // MARK: - PROPERTIES
-    let dataProvider: ArticleDataProvider = .init()
 
     // MARK: - BODY
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(dataProvider)
         }
     }
 }

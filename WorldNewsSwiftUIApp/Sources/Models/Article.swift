@@ -84,20 +84,6 @@ struct Article {
         )
     }
 
-    static func toArticle(dto: ArticleAPI) -> Article {
-        return Article(
-            source: .init(),
-            author: dto.author ?? "",
-            title: dto.title ?? "",
-            description: dto.description ?? "",
-            url: dto.url,
-            imageUrl: dto.urlToImage,
-            publishedAt: dto.publishedAt?.toDate() ?? .now,
-            content: dto.content ?? ""
-        )
-    }
-
-
 
     static let mockData: [Article] = [
         Article(
