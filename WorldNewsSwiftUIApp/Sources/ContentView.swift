@@ -17,12 +17,27 @@ struct ContentView: View {
         NavigationView {
             List {
                 ArticleListView()
+                    .overlay(overlayView)
                     .task(id: viewModel.category, loadArticles)
                     .refreshable(action: refresh)
                     .navigationTitle(viewModel.category.rawValue)
             }
         }
 
+    }
+
+    @ViewBuilder
+    private var overlayView: some View {
+        switch viewModel.state {
+        case .loading:
+            ProgressView()
+        case .error(let error):
+            Text("Error: \(error)")
+        case .loaded:
+            EmptyView()
+        case .empty:
+            Text("No articles found")
+        }
     }
 
     @Sendable
