@@ -11,7 +11,6 @@ import SwiftUI
 struct ArticleListView: View {
     // MARK: - PROPRERTIES
     @StateObject private var viewModel = ArticleViewModel()
-    @State private var selectedItem : Category = .science
     @State private var newsCategory: CategoryQuery = .science
 
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
@@ -20,7 +19,7 @@ struct ArticleListView: View {
 
     // MARK: - BODY
     var body: some View {
-        CategorySelectorView(selectedItem: $selectedItem)
+        CategorySelectorView(selectedItem: $newsCategory)
         NavigationView {
             List {
 
@@ -37,7 +36,7 @@ struct ArticleListView: View {
                         ArticleView(article: item.article)
                             .padding()
                             .onAppear {
-                                title = selectedItem.rawValue.capitalized
+                                title = newsCategory.rawValue.capitalized
                                 if !viewModel.articleItems.isEmpty
                                     && item == viewModel.articleItems.last
                                 {
@@ -62,17 +61,9 @@ struct ArticleListView: View {
                     }
                 }
             }
-            .onChange(of: selectedItem) { newValue in
+            .onChange(of: newsCategory) { newValue in
                 self.title =  newValue.rawValue.capitalized
-                var newsCategory: CategoryQuery
-                switch selectedItem {
-                case .science:
-                    newsCategory = .science
-                case .general:
-                    newsCategory = .general
-                case .health:
-                    newsCategory = .health
-                }
+
                 print("-----------------------------------")
                 print("On Category Change: \(newsCategory)")
                 print("items: \(viewModel.articleItems)")

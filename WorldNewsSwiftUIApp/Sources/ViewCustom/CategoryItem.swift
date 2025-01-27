@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct CategoryItem: View {
-    var item: Category
+    var item: CategoryQuery
     var isSelected: Bool = false
     
     var body: some View {
@@ -21,7 +21,7 @@ struct CategoryItem: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.clear)
                 .multilineTextAlignment(.center)
-            Text(item.indicatorImage)
+//            Text(item.indicatorImage)
         }
     }
 }
