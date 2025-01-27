@@ -21,7 +21,7 @@ struct CategoryItem: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.clear)
                 .multilineTextAlignment(.center)
-//            Text(item.indicatorImage)
+            Text(item.indicatorImage)
         }
     }
 }
