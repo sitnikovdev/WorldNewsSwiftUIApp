@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ArticleDetailView: View {
-   @State var article: Article?
-    @State var selected: Article?
+   @State var article: ArticleDTO?
+    @State var selected: ArticleDTO?
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             // MARK: - IMAGE

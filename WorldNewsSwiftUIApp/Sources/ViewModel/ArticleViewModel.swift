@@ -91,7 +91,7 @@ class ArticleViewModel: ObservableObject {
 
            let articlesAPI = response.articles ?? []
            var articleItems: [ArticleItem] = []
-           articlesAPI.forEach { articleItems.append(.init(Article.toArticle(dto: $0))) }
+           articlesAPI.forEach { articleItems.append(.init($0)) }
 
            let  totalResults = response.totalResults ?? 0
            let totalPages = Int(ceil(Double(totalResults) / 10.0))
@@ -127,7 +127,7 @@ class ArticleViewModel: ObservableObject {
             )
 
             let articlesAPI = response.articles ?? []
-            articlesAPI.forEach { articleItems.append(.init(Article.toArticle(dto: $0))) }
+            articlesAPI.forEach { articleItems.append(.init($0)) }
 
             let  totalResults = response.totalResults ?? 0
             let totalPages = Int(ceil(Double(totalResults) / 10.0))

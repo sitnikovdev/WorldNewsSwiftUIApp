@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ArticleView: View {
     // MARK: - PROPERTIES
-    let article: Article
+    let article: ArticleDTO
 
     // MARK: - BODY
     var body: some View {
@@ -49,12 +49,12 @@ struct ArticleView: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 // MARK: - TITLE
-                Text(article.title)
+                Text(article.titleText)
                     .font(.headline)
                     .lineLimit(3)
 
                 // MARK: - DESCRIPTION
-                Text(article.description)
+                Text(article.descriptionText)
                     .font(.subheadline)
                     .lineLimit(2)
 
