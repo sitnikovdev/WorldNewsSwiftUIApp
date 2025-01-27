@@ -79,7 +79,7 @@ struct PaginatedListView: View {
 
                 print("remove items...")
                 viewModel.category = newsCategory
-                viewModel.items.removeAll()
+//                viewModel.items.removeAll()
                 print("items: \(viewModel.items)")
                 Task {
                     print("request to server...")
@@ -88,6 +88,8 @@ struct PaginatedListView: View {
                 print("items updated: \(viewModel.items)")
             }
             .navigationTitle($title)
+            .navigationBarTitleDisplayMode(.inline)
+
         }
     }
 

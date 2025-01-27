@@ -159,6 +159,13 @@ paths:
             type: string
             default: us
             example: us
+        - name: language
+          in: query
+          description: "The 2-letter ISO-639-1 code of the language you want to get headlines for. Possible options: ar, de, en, es, fr, hi, it, nl, no, pt, ru, sv, zh."
+          required: false
+          schema:
+            type: string
+            example: "en"
         - name: q
           in: query
           description: The search query term (e.g., 'bitcoin'). Can be used to filter headlines further.
@@ -295,3 +302,5 @@ components:
 
 security:
   - ApiKeyAuth: []
+
+
