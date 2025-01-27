@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-typealias NewsCategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPayload
 
 struct ArticleListView: View {
     // MARK: - PROPRERTIES
-    @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
-    @StateObject private var viewModel =
-    ArticleViewModel()
+    @StateObject private var viewModel = ArticleViewModel()
     @State private var selectedItem : Category = .science
-    @State private var title: String = "Loading..."
     @State private var newsCategory: NewsCategoryQuery = .science
+
+    @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
+    @State private var title: String = "Loading..."
+
 
     // MARK: - BODY
     var body: some View {
@@ -79,7 +79,6 @@ struct ArticleListView: View {
 
                 print("remove items...")
                 viewModel.category = newsCategory
-//                viewModel.items.removeAll()
                 print("items: \(viewModel.items)")
                 Task {
                     print("request to server...")
