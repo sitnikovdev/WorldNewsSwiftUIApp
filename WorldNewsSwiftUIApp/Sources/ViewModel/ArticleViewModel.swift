@@ -30,8 +30,7 @@ struct TaskUpdater: Equatable {
 @MainActor
 class ArticleViewModel: ObservableObject {
     // MARK: - PROPERTIES
-    @Published var category: Category = .science
-    @Published var taskUpdater = TaskUpdater(id: .now, category: .science)
+    @Published var taskUpdater: TaskUpdater
     @Published var state: CurrentState<Article> = .empty
 
     @Published var articleItems: [Article] = []
@@ -60,11 +59,6 @@ class ArticleViewModel: ObservableObject {
         self.taskUpdater = .init(id: .now, category: category)
     }
 
-    //    init() {
-    //        Task {
-    //            try await getNewsWithCategory()
-    //        }
-    //    }
 
     func loadArticles() async {
         do {
@@ -119,41 +113,6 @@ class ArticleViewModel: ObservableObject {
         return []
     }
 
-    // MARK: - EXTENTION PAGINATION
-    func getNewsWithCategory() async throws -> [Article] {
-
-        print("API Call with Real Data ")
-        print("_________________________")
-        print("🚀 Start fetching data with category: \(category)...")
-        do {
-
-            isLoading = true
-            let response =  try await ArticleAPIClient().getTopHeadline(page: query.page,
-                                                                        pageSize: query.pageSize,
-                                                                        category: category,
-                                                                        country: query.language,
-                                                                        withDelay: query.withDelay,
-                                                                        isOnline: query.isOnline
-            )
-
-            let articlesAPI = response.articles ?? []
-            articlesAPI.forEach { articleItems.append($0) }
-
-            let  totalResults = response.totalResults ?? 0
-            let totalPages = Int(ceil(Double(totalResults) / 10.0))
-            self.hasMoreData = query.page < totalPages
-
-            logs(totalPages: totalPages, totalResults: totalResults)
-
-            self.isLoading = false
-            query.page += 1
-            return articleItems
-            
-        } catch {
-            print(error)
-        }
-        return []
-    }
 
     private func logs(totalPages: Int, totalResults: Int) {
         print("Total pages: \(totalPages)")

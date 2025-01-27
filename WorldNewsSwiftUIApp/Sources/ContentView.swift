@@ -13,16 +13,12 @@ struct ContentView: View {
     @State private var title: String = "Loading..."
 
     var body: some View {
-        CategorySelectorView(selectedItem: $viewModel.category)
-        NavigationView {
-            List {
+        CategorySelectorView(selectedItem: $viewModel.taskUpdater.category)
                 ArticleListView(articles: articles)
                     .overlay(overlayView)
-                    .task(id: viewModel.category, loadArticles)
+                    .task(id: viewModel.taskUpdater, loadArticles)
                     .refreshable(action: refresh)
-                    .navigationTitle(viewModel.category.rawValue)
-            }
-        }
+                    .navigationTitle(viewModel.taskUpdater.category.rawValue)
 
     }
 
@@ -55,7 +51,7 @@ struct ContentView: View {
 
     @Sendable
     func refresh() async {
-        await viewModel.loadArticles()
+        viewModel.taskUpdater = .init(id: .now, category: viewModel.taskUpdater.category)
     }
 }
 
