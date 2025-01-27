@@ -40,7 +40,6 @@ struct ArticleListView: View {
                                 if !viewModel.articleItems.isEmpty
                                     && item == viewModel.articleItems.last
                                 {
-                                    print("on appear: item == viewModel.items.last")
                                     Task {
                                         try await viewModel.getNewsWithCategory()
                                     }
@@ -64,16 +63,9 @@ struct ArticleListView: View {
             .onChange(of: newsCategory) { newValue in
                 self.title =  newValue.rawValue.capitalized
 
-                print("-----------------------------------")
-                print("On Category Change: \(newsCategory)")
-                print("items: \(viewModel.articleItems)")
-
-                print("remove items...")
                 viewModel.category = newsCategory
-                print("items: \(viewModel.articleItems)")
                 Task {
-                    print("request to server...")
-                   try await viewModel.getNewsWithCategory()
+                    try await viewModel.getNewsWithCategory()
                 }
                 print("items updated: \(viewModel.articleItems)")
             }
