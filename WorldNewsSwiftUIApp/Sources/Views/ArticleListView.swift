@@ -31,8 +31,7 @@ struct ArticleListView: View {
             // Display the actual items
             ForEach(articles, id: \.id) { item in
 //                NavigationLink(destination: ArticleDetailView(article: item)) {
-                    ArticleView(article: item)
-                        .padding()
+                    ArticleItemView(article: item)
                     //                            .onAppear {
                     //                                if !articles.isEmpty
                     //                                    && item == articles.last

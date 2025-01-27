@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ArticleView: View {
+struct ArticleItemView: View {
     // MARK: - PROPERTIES
     let article: Article
 
     // MARK: - BODY
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack() {
             // MARK: - IMAGE
             AsyncImage(url: article.imageURL) { phase in
                 switch phase {
@@ -47,7 +47,7 @@ struct ArticleView: View {
             .background(Color.gray.opacity(0.3))
             .clipped()
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack() {
                 // MARK: - TITLE
                 Text(article.titleText)
                     .font(.headline)
