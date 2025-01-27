@@ -12,7 +12,7 @@ struct ArticleListView: View {
     // MARK: - PROPRERTIES
     @StateObject private var viewModel = ArticleViewModel()
     @State private var selectedItem : Category = .science
-    @State private var newsCategory: NewsCategoryQuery = .science
+    @State private var newsCategory: CategoryQuery = .science
 
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
     @State private var title: String = "Loading..."
@@ -64,7 +64,7 @@ struct ArticleListView: View {
             }
             .onChange(of: selectedItem) { newValue in
                 self.title =  newValue.rawValue.capitalized
-                var newsCategory: NewsCategoryQuery
+                var newsCategory: CategoryQuery
                 switch selectedItem {
                 case .science:
                     newsCategory = .science

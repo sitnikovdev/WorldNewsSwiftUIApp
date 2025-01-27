@@ -7,6 +7,22 @@
 
 import Foundation
 
+enum CurrentState<T> {
+    case empty
+    case loading
+    case loaded([T])
+    case error(Error)
+}
+
+struct QueryParameters {
+    var pageSize: Int
+    var page: Int
+    var isOnline: Bool = false
+    var withDelay: Bool = false
+    var language: String = "us"
+}
+
+
 @MainActor
 class ArticleViewModel: ObservableObject {
     // MARK: - PROPERTIES
@@ -14,12 +30,17 @@ class ArticleViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var hasMoreData = true
 
-    var category: NewsCategoryQuery = .science
+    @Published var category: CategoryQuery = .science
+    @Published var state: CurrentState<ArticleItem> = .empty
 
-    private var isLocal: Bool = false
-    private var isOnline: Bool = true
-    private var withDelay: Bool = false
-    private var currentPage = 1
+    private var query = QueryParameters(
+                            pageSize: 10,
+                            page: 1,
+                            isOnline: true,
+                            withDelay: false,
+                            language: "us"
+    )
+
 
     init() {
         Task {
@@ -36,12 +57,12 @@ class ArticleViewModel: ObservableObject {
         do {
 
             isLoading = true
-            let response =  try await ArticleAPIClient().getTopHeadline(page: currentPage,
-                                                                        pageSize: 10,
+            let response =  try await ArticleAPIClient().getTopHeadline(page: query.page,
+                                                                        pageSize: query.pageSize,
                                                                         category: category,
-                                                                        country: "us",
-                                                                        withDelay: withDelay,
-                                                                        isOnline:  isOnline
+                                                                        country: query.language,
+                                                                        withDelay: query.withDelay,
+                                                                        isOnline: query.isOnline
             )
 
             let articlesAPI = response.articles ?? []
@@ -49,15 +70,12 @@ class ArticleViewModel: ObservableObject {
 
             let  totalResults = response.totalResults ?? 0
             let totalPages = Int(ceil(Double(totalResults) / 10.0))
-            self.hasMoreData = self.currentPage < totalPages
+            self.hasMoreData = query.page < totalPages
 
-            print("Total pages: \(totalPages)")
-            print("Total results: \(totalResults)")
-            print("Total items: \(items.count)")
-            print("Current page: \(currentPage)")
+            logs(totalPages: totalPages, totalResults: totalResults)
 
             self.isLoading = false
-            self.currentPage += 1
+            query.page += 1
             return items
 
         } catch {
@@ -65,4 +83,13 @@ class ArticleViewModel: ObservableObject {
         }
         return []
     }
+
+    private func logs(totalPages: Int, totalResults: Int) {
+        print("Total pages: \(totalPages)")
+        print("Total results: \(totalResults)")
+        print("Total items: \(items.count)")
+        print("Current page: \(query.page)")
+    }
+
 }
+
