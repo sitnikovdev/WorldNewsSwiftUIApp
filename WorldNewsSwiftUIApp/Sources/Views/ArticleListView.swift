@@ -30,19 +30,23 @@ struct ArticleListView: View {
                     }
                 }
                 ForEach(articles, id: \.id) { item in
-                    NavigationLink(destination: ArticleDetailView(article: item)) {
-                        ArticleItemView(article: item)
-                        //                            .onAppear {
-                        //                                if !articles.isEmpty
-                        //                                    && item == articles.last
-                        //                                {
-                        //                                    Task {
-                        //                                        try await viewModel.getNewsWithCategory()
-                        //                                    }
-                        //                                }
-                        //                                progressViewId += 1
-                        //                            }
-                    }
+                    //                    NavigationLink(destination: ArticleDetailView(article: item)) {
+                    ArticleItemView(article: item)
+                        .background(
+                            NavigationLink("", destination: ArticleDetailView(article: item))
+                                .opacity(0) // Hide the NavigationLink
+                        )
+                    //                            .onAppear {
+                    //                                if !articles.isEmpty
+                    //                                    && item == articles.last
+                    //                                {
+                    //                                    Task {
+                    //                                        try await viewModel.getNewsWithCategory()
+                    //                                    }
+                    //                                }
+                    //                                progressViewId += 1
+                    //                            }
+                    //                    }
                 }
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .listRowSeparator(.hidden)
