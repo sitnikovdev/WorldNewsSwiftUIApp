@@ -20,30 +20,29 @@ struct ArticleListView: View {
         // Display skeleton loader if items are not loadded
         //                if articles.isEmpty && viewModel.isLoading {
 
-        //TODO: -FIX SCELETON
-        //                if articles.isEmpty {
-        //                    ForEach(0..<5, id: \.self) { _ in
-        //                        SkeletonLoaderView()
-        //                    }
-        //                }
 
         NavigationView {
             List {
-                // Display the actual items
+                //TODO: -FIX SCELETON
+                if articles.isEmpty {
+                    ForEach(0..<5, id: \.self) { _ in
+                        SkeletonLoaderView()
+                    }
+                }
                 ForEach(articles, id: \.id) { item in
-                                    NavigationLink(destination: ArticleDetailView(article: item)) {
-                    ArticleItemView(article: item)
-                    //                            .onAppear {
-                    //                                if !articles.isEmpty
-                    //                                    && item == articles.last
-                    //                                {
-                    //                                    Task {
-                    //                                        try await viewModel.getNewsWithCategory()
-                    //                                    }
-                    //                                }
-                    //                                progressViewId += 1
-                    //                            }
-                                    }
+                    NavigationLink(destination: ArticleDetailView(article: item)) {
+                        ArticleItemView(article: item)
+                        //                            .onAppear {
+                        //                                if !articles.isEmpty
+                        //                                    && item == articles.last
+                        //                                {
+                        //                                    Task {
+                        //                                        try await viewModel.getNewsWithCategory()
+                        //                                    }
+                        //                                }
+                        //                                progressViewId += 1
+                        //                            }
+                    }
                 }
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .listRowSeparator(.hidden)
