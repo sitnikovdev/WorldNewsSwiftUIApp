@@ -1,10 +1,9 @@
 //
 //  SafariView.swift
-//  XCANews
+//  SafariView
 //
-//  Created by Alfian Losari on 6/27/21.
+//  Created by Oleg Sitnikov on 23.01.25.
 //
-
 import SwiftUI
 import SafariServices
 

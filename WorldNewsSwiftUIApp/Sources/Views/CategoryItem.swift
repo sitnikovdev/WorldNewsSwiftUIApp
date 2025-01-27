@@ -1,3 +1,9 @@
+//
+//  CategoryItem.swift
+//  CategoryItem
+//
+//  Created by Oleg Sitnikov on 23.01.25.
+//
 import SwiftUI
 
 struct CategoryItem: View {
