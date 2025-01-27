@@ -9,6 +9,8 @@ import Foundation
 
 
 fileprivate let relativeDateFormatter: RelativeDateTimeFormatter = .init()
+
+typealias ArticleDTO = Components.Schemas.Article
 typealias Source = Components.Schemas.Source
 
 

@@ -9,7 +9,6 @@ import Foundation
 class Helper {
     static var lastId: Int = 0
 }
-typealias ArticleDTO = Components.Schemas.Article
 
 struct ArticleItem: Identifiable, Hashable {
 
