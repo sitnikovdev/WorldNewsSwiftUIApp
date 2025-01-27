@@ -132,13 +132,6 @@ paths:
         - ApiKeyAuth: []
       summary: Get the latest top headlines
       parameters:
-        - name: local
-          in: query
-          description: The type of request. If value true, then only data from the DB will be fetched. If is false - data from API and updated data from DB will be returned.
-          required: false
-          schema:
-            type: boolean
-            example: false
         - name: isOnline
           in: query
           description: The type of request. If value true, then only data from the outside API will be fetched. No DB call will be executed.
@@ -248,6 +241,24 @@ paths:
                   error:
                     type: string
                     example: "Internal server error"
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [error]
+                    example: error
+                  code:
+                    type: string
+                    enum: [rateLimited]
+                    example: rateLimited
+                  message:
+                    type: string
+                    example: "You have made too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests."
 
 components:
   securitySchemes:
@@ -257,6 +268,19 @@ components:
       name: X-API-KEY
 
   schemas:
+    RateLimitResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        code:
+          type: string
+          example: 429
+        message:
+          type: string
+          example: "You have made too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests."
+
     Source:
       type: object
       properties:
