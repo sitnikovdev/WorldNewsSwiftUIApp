@@ -20,7 +20,9 @@ public struct ArticleAPIClient {
                         category: NewsCategoryQuery = .general,
                         country: String = "us",
                         withDelay: Bool,
-                        isOnline: Bool
+                        isOnline: Bool,
+                        isSaveDB: Bool
+
     ) async throws  -> GetTopHeadlines {
 
         let client = Client(
@@ -31,6 +33,7 @@ public struct ArticleAPIClient {
                 query: .init(
                     isOnline: isOnline,
                     withDelay: false,
+                    savedb: isSaveDB,
                     country: country,
                     category: category,
                     pageSize: pageSize,

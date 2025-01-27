@@ -20,6 +20,7 @@ struct QueryParameters {
     var isOnline: Bool = false
     var withDelay: Bool = false
     var language: String = "us"
+    var saveDb: Bool = false
 }
 
 struct TaskUpdater: Equatable {
@@ -44,7 +45,8 @@ class ArticleViewModel: ObservableObject {
         page: 1,
         isOnline: true,
         withDelay: false,
-        language: "us"
+        language: "us",
+        saveDb: true
     )
 
     static let shared = ArticleViewModel()
@@ -88,7 +90,8 @@ class ArticleViewModel: ObservableObject {
                                                                         category: category,
                                                                         country: query.language,
                                                                         withDelay: query.withDelay,
-                                                                        isOnline: query.isOnline
+                                                                        isOnline: query.isOnline,
+                                                                        isSaveDB: query.saveDb
             )
 
             let articlesAPI = response.articles ?? []
