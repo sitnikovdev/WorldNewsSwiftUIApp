@@ -13,12 +13,9 @@ public struct ArticleAPIClient {
 
     func getNewsResponse(page: Int = 1) async throws  -> Operations.GetLatestNews.Output.Ok.Body.JsonPayload {
 
-        let apiKey = "2fc50c684ad04a7e8dcf413c0d6e20a8"
-
         let client = Client(
             serverURL: try Servers.Server1.url(),
-            transport: URLSessionTransport(),
-            middlewares: [AuthenticationMiddleware(authorizationHeaderFieldValue: apiKey)]
+            transport: URLSessionTransport()
         )
         let response = try await client.getLatestNews(
                 query: .init(
@@ -42,12 +39,9 @@ public struct ArticleAPIClient {
                         onlyAPI: Bool
     ) async throws  -> GetTopHeadlines {
 
-        let apiKey = "2fc50c684ad04a7e8dcf413c0d6e20a8"
-
         let client = Client(
             serverURL: try Servers.Server1.url(),
-            transport: URLSessionTransport(),
-            middlewares: [AuthenticationMiddleware(authorizationHeaderFieldValue: apiKey)]
+            transport: URLSessionTransport()
         )
         let response = try await client.getTopHeadlines(
                 query: .init(
