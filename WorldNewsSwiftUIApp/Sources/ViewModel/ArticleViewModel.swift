@@ -22,11 +22,16 @@ struct QueryParameters {
     var language: String = "us"
 }
 
+struct TaskUpdater: Equatable {
+    var id: Date
+    var category: Category
+}
 
 @MainActor
 class ArticleViewModel: ObservableObject {
     // MARK: - PROPERTIES
     @Published var category: Category = .science
+    @Published var taskUpdater = TaskUpdater(id: .now, category: .science)
     @Published var state: CurrentState<Article> = .empty
 
     @Published var articleItems: [Article] = []
@@ -36,11 +41,11 @@ class ArticleViewModel: ObservableObject {
 
 
     private var query = QueryParameters(
-                            pageSize: 10,
-                            page: 1,
-                            isOnline: true,
-                            withDelay: false,
-                            language: "us"
+        pageSize: 10,
+        page: 1,
+        isOnline: true,
+        withDelay: false,
+        language: "us"
     )
 
 
@@ -52,18 +57,18 @@ class ArticleViewModel: ObservableObject {
         } else {
             state = .empty
         }
-        self.category = category
+        self.taskUpdater = .init(id: .now, category: category)
     }
 
-    init() {
-        Task {
-            try await getNewsWithCategory()
-        }
-    }
+    //    init() {
+    //        Task {
+    //            try await getNewsWithCategory()
+    //        }
+    //    }
 
     func loadArticles() async {
         do {
-            let articles = try await fetch()
+            let articles = try await fetch(with: taskUpdater.category)
             state = .loaded(articles)
         } catch {
             state = .error(error)
@@ -73,44 +78,49 @@ class ArticleViewModel: ObservableObject {
 
 
     // MARK: - RETURN ARTICLE FROM API CALL
-    func fetch() async throws -> [Article] {
+    func fetch(with category: Category ) async throws -> [Article] {
 
-       print("API Call with Real Data ")
-       print("_________________________")
-       print("🚀 Start fetching data with category: \(category)...")
-       do {
+        print("API Call with Real Data ")
+        print("_________________________")
+        print("🚀 Start fetching data with category: \(category)...")
+        do {
 
-           isLoading = true
-           let response =  try await ArticleAPIClient().getTopHeadline(page: query.page,
-                                                                       pageSize: query.pageSize,
-                                                                       category: category,
-                                                                       country: query.language,
-                                                                       withDelay: query.withDelay,
-                                                                       isOnline: query.isOnline
-           )
+            isLoading = true
+            state = .loading
 
-           let articlesAPI = response.articles ?? []
-           var articleItems: [Article] = []
-           articlesAPI.forEach { articleItems.append($0) }
+            let response =  try await ArticleAPIClient().getTopHeadline(page: query.page,
+                                                                        pageSize: query.pageSize,
+                                                                        category: category,
+                                                                        country: query.language,
+                                                                        withDelay: query.withDelay,
+                                                                        isOnline: query.isOnline
+            )
 
-           let  totalResults = response.totalResults ?? 0
-           let totalPages = Int(ceil(Double(totalResults) / 10.0))
-           self.hasMoreData = query.page < totalPages
+            let articlesAPI = response.articles ?? []
+            var articles: [Article] = []
+            articlesAPI.forEach { articles.append($0) }
 
-           logs(totalPages: totalPages, totalResults: totalResults)
+            let  totalResults = response.totalResults ?? 0
+            let totalPages = Int(ceil(Double(totalResults) / 10.0))
+            self.hasMoreData = query.page < totalPages
 
-           self.isLoading = false
-           query.page += 1
-           return articleItems
+            logs(totalPages: totalPages, totalResults: totalResults)
 
-       } catch {
-           print(error)
-       }
-       return []
-   }
+            self.isLoading = false
+            state = .loaded(articles)
+            query.page += 1
+            return articles
+
+        } catch {
+            print(error)
+            state = .error(error)
+        }
+        state = .empty
+        return []
+    }
 
     // MARK: - EXTENTION PAGINATION
-     func getNewsWithCategory() async throws -> [Article] {
+    func getNewsWithCategory() async throws -> [Article] {
 
         print("API Call with Real Data ")
         print("_________________________")
@@ -138,7 +148,7 @@ class ArticleViewModel: ObservableObject {
             self.isLoading = false
             query.page += 1
             return articleItems
-
+            
         } catch {
             print(error)
         }

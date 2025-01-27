@@ -16,7 +16,7 @@ struct ContentView: View {
         CategorySelectorView(selectedItem: $viewModel.category)
         NavigationView {
             List {
-                ArticleListView()
+                ArticleListView(articles: articles)
                     .overlay(overlayView)
                     .task(id: viewModel.category, loadArticles)
                     .refreshable(action: refresh)
@@ -24,6 +24,14 @@ struct ContentView: View {
             }
         }
 
+    }
+
+    var articles: [Article] {
+        if case let .loaded(articles) = viewModel.state {
+            return articles
+        } else {
+            return []
+        }
     }
 
     @ViewBuilder
