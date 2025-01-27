@@ -10,16 +10,10 @@ import SwiftUI
 
 struct ArticleListView: View {
     @EnvironmentObject var articleVM: ArticleViewModel
-    // MARK: - PROPRERTIES
     let articles: [Article]
-    @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
 
 
-    // MARK: - BODY
     var body: some View {
-
-        // Display skeleton loader if items are not loadded
-        //                if articles.isEmpty && viewModel.isLoading {
 
 
         NavigationView {
@@ -37,14 +31,12 @@ struct ArticleListView: View {
                                 .opacity(0) // Hide the NavigationLink
                         )
                         .onAppear {
-                            if !articles.isEmpty
-                                && item == articles.last
-                            {
+                            if  case .loaded = articleVM.state,
+                                item == articles.last {
                                 Task {
-                                     await articleVM.loadArticles()
+                                    await articleVM.loadArticles()
                                 }
                             }
-                            progressViewId += 1
                         }
                 }
             }
@@ -54,15 +46,6 @@ struct ArticleListView: View {
         }
         .listStyle(.plain)
     }
-    // TODO: - FIX PROGRESS VIEW
-    //                if viewModel.isLoading {
-    //                    VStack  {
-    //                        ProgressView()
-    //                            .id(progressViewId)
-    //                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-    //                            .scaleEffect(1.5)
-    //                    }
-    //                }
 }
 
 
