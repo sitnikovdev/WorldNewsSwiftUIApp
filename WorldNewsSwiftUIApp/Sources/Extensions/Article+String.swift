@@ -12,7 +12,7 @@ fileprivate let relativeDateFormatter: RelativeDateTimeFormatter = .init()
 
 typealias Article = Components.Schemas.Article
 typealias Source = Components.Schemas.Source
-typealias CategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPayload
+typealias Category = Operations.GetTopHeadlines.Input.Query.CategoryPayload
 
 
 extension String {

@@ -26,7 +26,7 @@ struct QueryParameters {
 @MainActor
 class ArticleViewModel: ObservableObject {
     // MARK: - PROPERTIES
-    @Published var category: CategoryQuery = .science
+    @Published var category: Category = .science
     @Published var state: CurrentState<ArticleItem> = .empty
 
     @Published var articleItems: [ArticleItem] = []
@@ -45,7 +45,7 @@ class ArticleViewModel: ObservableObject {
 
 
     init(articles: [ArticleItem]? = nil,
-         category: CategoryQuery = .science
+         category: Category = .science
     ) {
         if let articles = articles {
             state = .loaded(articles)

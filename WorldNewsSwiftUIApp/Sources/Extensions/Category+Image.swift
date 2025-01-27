@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-extension CategoryQuery {
+extension Category {
     var indicatorImage: String {
         switch self {
             

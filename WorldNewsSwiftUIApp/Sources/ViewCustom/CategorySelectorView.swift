@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct CategorySelectorView: View {
-    @Binding var selectedItem: CategoryQuery
+    @Binding var selectedItem: Category
 
     var body: some View {
 
         CategorySelector(
-            CategoryQuery.allCases,
+            Category.allCases,
             selection: selectedItem,
             indicatorBuilder: {
                 GeometryReader { geo in
@@ -21,10 +21,10 @@ struct CategorySelectorView: View {
                         .foregroundColor(.white)
                         .cornerRadius(6.0)
                         .padding(1)
-                        .frame(width: geo.size.width / CGFloat(CategoryQuery.allCases.count))
+                        .frame(width: geo.size.width / CGFloat(Category.allCases.count))
                         .shadow(color: .black.opacity(0.1), radius: 2, x: 1, y: 1)
                         .animation(.spring().speed(1.5))
-                        .offset(x: geo.size.width / CGFloat(CategoryQuery.allCases.count) * CGFloat(CategoryQuery.allCases.firstIndex(of: selectedItem)!), y: 0)
+                        .offset(x: geo.size.width / CGFloat(Category.allCases.count) * CGFloat(Category.allCases.firstIndex(of: selectedItem)!), y: 0)
                 }.frame(height: 64)
             }
         ) { item in

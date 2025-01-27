@@ -11,7 +11,7 @@ import SwiftUI
 struct ArticleListView: View {
     // MARK: - PROPRERTIES
     @StateObject private var viewModel = ArticleViewModel()
-    @State private var newsCategory: CategoryQuery = .science
+    @State private var newsCategory: Category = .science
 
     @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
     @State private var title: String = "Loading..."

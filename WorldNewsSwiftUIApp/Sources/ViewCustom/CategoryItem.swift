@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct CategoryItem: View {
-    var item: CategoryQuery
+    var item: Category
     var isSelected: Bool = false
     
     var body: some View {
