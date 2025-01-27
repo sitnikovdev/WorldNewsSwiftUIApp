@@ -25,7 +25,6 @@ struct ContentView: View {
                         Task {
                             try await viewModel.getNewsWithCategory()
                         }
-                        print("items updated: \(viewModel.articleItems)")
                     }
                     .navigationTitle($title)
                     .navigationBarTitleDisplayMode(.inline)

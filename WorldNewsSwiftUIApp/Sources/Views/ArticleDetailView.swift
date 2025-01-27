@@ -69,7 +69,6 @@ struct ArticleDetailView: View {
         .onTapGesture {
 
             selected = article
-            print("article tapped: \(article?.title ?? "")")
         }
         .sheet(item: $selected) {
             if let url = $0.articleURL {
