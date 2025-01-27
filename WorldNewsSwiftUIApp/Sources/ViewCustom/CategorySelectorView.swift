@@ -9,7 +9,11 @@ import SwiftUI
 
 struct CategorySelectorView: View {
     @Binding var selectedItem: Category
-    let selectedCategory = [Category.science, Category.health, Category.entertainment]
+    let selectedCategory = [
+        Category.science,
+        Category.health,
+        Category.entertainment
+    ]
 
     var body: some View {
 
