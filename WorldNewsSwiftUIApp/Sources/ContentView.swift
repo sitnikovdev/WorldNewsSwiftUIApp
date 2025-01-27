@@ -19,7 +19,6 @@ struct ContentView: View {
                 ArticleListView()
                     .task(id: viewModel.category, loadArticles)
                     .navigationTitle(viewModel.category.rawValue)
-                    .navigationBarTitleDisplayMode(.inline)
             }
         }
 
