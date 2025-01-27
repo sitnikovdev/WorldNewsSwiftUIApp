@@ -166,13 +166,6 @@ paths:
           schema:
             type: string
             example: "en"
-        - name: q
-          in: query
-          description: The search query term (e.g., 'bitcoin'). Can be used to filter headlines further.
-          required: false
-          schema:
-            type: string
-            example:
         - name: category
           in: query
           description: "The category you want to get headlines for. Possible options: business, entertainment, general, health, science, sports, technology."
