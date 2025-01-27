@@ -25,25 +25,25 @@ struct ArticleListView: View {
             List {
 
                 // Display skeleton loader if items are not loadded
-                if viewModel.items.isEmpty && viewModel.isLoading {
+                if viewModel.articleItems.isEmpty && viewModel.isLoading {
                     ForEach(0..<5, id: \.self) { _ in
                         SkeletonLoaderView()
                     }
                 }
 
                 // Display the actual items
-                ForEach(viewModel.items, id: \.self) { item in
+                ForEach(viewModel.articleItems, id: \.self) { item in
                     NavigationLink(destination: ArticleDetailView(article: item.article)) {
                         ArticleView(article: item.article)
                             .padding()
                             .onAppear {
                                 title = selectedItem.rawValue.capitalized
-                                if !viewModel.items.isEmpty
-                                    && item == viewModel.items.last
+                                if !viewModel.articleItems.isEmpty
+                                    && item == viewModel.articleItems.last
                                 {
                                     print("on appear: item == viewModel.items.last")
                                     Task {
-                                        await viewModel.getNewsWithCategory()
+                                        try await viewModel.getNewsWithCategory()
                                     }
                                 }
                                 progressViewId += 1
@@ -75,16 +75,16 @@ struct ArticleListView: View {
                 }
                 print("-----------------------------------")
                 print("On Category Change: \(newsCategory)")
-                print("items: \(viewModel.items)")
+                print("items: \(viewModel.articleItems)")
 
                 print("remove items...")
                 viewModel.category = newsCategory
-                print("items: \(viewModel.items)")
+                print("items: \(viewModel.articleItems)")
                 Task {
                     print("request to server...")
-                    await viewModel.getNewsWithCategory()
+                   try await viewModel.getNewsWithCategory()
                 }
-                print("items updated: \(viewModel.items)")
+                print("items updated: \(viewModel.articleItems)")
             }
             .navigationTitle($title)
             .navigationBarTitleDisplayMode(.inline)
