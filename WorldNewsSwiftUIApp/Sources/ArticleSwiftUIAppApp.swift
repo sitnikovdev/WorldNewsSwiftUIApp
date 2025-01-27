@@ -9,12 +9,14 @@ import SwiftUI
 
 @main
 struct ArticleSwiftUIAppApp: App {
+    @StateObject var articleVM = ArticleViewModel.shared
     // MARK: - PROPERTIES
 
     // MARK: - BODY
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(articleVM)
         }
     }
 }

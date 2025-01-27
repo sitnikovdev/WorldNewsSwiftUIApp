@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 
 struct ContentView: View {
-    @StateObject private var viewModel = ArticleViewModel()
+    @EnvironmentObject private var viewModel: ArticleViewModel
     @State private var title: String = "Loading..."
 
     var body: some View {

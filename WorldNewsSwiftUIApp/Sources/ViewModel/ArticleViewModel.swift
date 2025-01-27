@@ -47,6 +47,7 @@ class ArticleViewModel: ObservableObject {
         language: "us"
     )
 
+    static let shared = ArticleViewModel()
 
     init(articles: [Article]? = nil,
          category: Category = .science

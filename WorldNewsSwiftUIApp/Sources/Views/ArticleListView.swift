@@ -9,9 +9,10 @@ import SwiftUI
 
 
 struct ArticleListView: View {
+    @EnvironmentObject var articleVM: ArticleViewModel
     // MARK: - PROPRERTIES
     let articles: [Article]
-    var progressViewId: Int = 0 // Fix bug with empty ProgressView
+    @State var progressViewId: Int = 0 // Fix bug with empty ProgressView
 
 
     // MARK: - BODY
@@ -30,42 +31,40 @@ struct ArticleListView: View {
                     }
                 }
                 ForEach(articles, id: \.id) { item in
-                    //                    NavigationLink(destination: ArticleDetailView(article: item)) {
                     ArticleItemView(article: item)
                         .background(
                             NavigationLink("", destination: ArticleDetailView(article: item))
                                 .opacity(0) // Hide the NavigationLink
                         )
-                    //                            .onAppear {
-                    //                                if !articles.isEmpty
-                    //                                    && item == articles.last
-                    //                                {
-                    //                                    Task {
-                    //                                        try await viewModel.getNewsWithCategory()
-                    //                                    }
-                    //                                }
-                    //                                progressViewId += 1
-                    //                            }
-                    //                    }
+                        .onAppear {
+                            if !articles.isEmpty
+                                && item == articles.last
+                            {
+                                Task {
+                                     await articleVM.loadArticles()
+                                }
+                            }
+                            progressViewId += 1
+                        }
                 }
-                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                .listRowSeparator(.hidden)
-
             }
-            .listStyle(.plain)
-        }
-        // TODO: - FIX PROGRESS VIEW
-        //                if viewModel.isLoading {
-        //                    VStack  {
-        //                        ProgressView()
-        //                            .id(progressViewId)
-        //                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        //                            .scaleEffect(1.5)
-        //                    }
-        //                }
-    }
+            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .listRowSeparator(.hidden)
 
+        }
+        .listStyle(.plain)
+    }
+    // TODO: - FIX PROGRESS VIEW
+    //                if viewModel.isLoading {
+    //                    VStack  {
+    //                        ProgressView()
+    //                            .id(progressViewId)
+    //                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+    //                            .scaleEffect(1.5)
+    //                    }
+    //                }
 }
+
 
 
 
