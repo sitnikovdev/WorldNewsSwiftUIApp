@@ -10,14 +10,11 @@ import Foundation
 
 struct ContentView: View {
 
-    // MARK: - BODY
     var body: some View {
-//        ArticleListView()
         PaginatedListView()
     }
 }
 
-// MARK: - PREVIEW
 #Preview {
     ContentView()
 }
