@@ -18,6 +18,7 @@ struct ContentView: View {
             List {
                 ArticleListView()
                     .task(id: viewModel.category, loadArticles)
+                    .refreshable(action: refresh)
                     .navigationTitle(viewModel.category.rawValue)
             }
         }
@@ -26,6 +27,11 @@ struct ContentView: View {
 
     @Sendable
     func loadArticles() async {
+        await viewModel.loadArticles()
+    }
+
+    @Sendable
+    func refresh() async {
         await viewModel.loadArticles()
     }
 }
