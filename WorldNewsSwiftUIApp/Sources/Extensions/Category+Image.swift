@@ -1,6 +1,14 @@
 import Foundation
 import SwiftUI
 
+public struct SelectedCategory {
+   static let items: [Category] = [
+        .science,
+        .technology,
+        .health,
+    ]
+}
+
 extension Category {
     var indicatorImage: String {
         switch self {
