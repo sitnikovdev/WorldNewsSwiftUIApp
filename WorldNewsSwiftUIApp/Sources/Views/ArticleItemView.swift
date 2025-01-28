@@ -86,6 +86,6 @@ struct ArticleItemView: View {
     }
     private func toggleBookmark(for article: Article) {
         // TODO: - Animation of ListView Cell with effect: Fly Away by Curve Down.
-        articleVM.bookmark(for: article)
+//        articleVM.bookmark(for: article)
     }
 }
