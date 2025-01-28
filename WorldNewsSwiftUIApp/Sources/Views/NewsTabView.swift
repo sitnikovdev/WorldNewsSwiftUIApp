@@ -10,7 +10,7 @@ import SwiftUI
 struct NewsTabView: View {
     @EnvironmentObject private var viewModel: ArticleViewModel
     @State private var title: String = "Loading..."
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -22,9 +22,9 @@ struct NewsTabView: View {
                     .navigationTitle(viewModel.taskUpdater.category.rawValue)
             }
         }
-        
+
     }
-    
+
     var articles: [Article] {
         if case let .loaded(articles) = viewModel.state {
             return articles
@@ -32,7 +32,7 @@ struct NewsTabView: View {
             return []
         }
     }
-    
+
     @ViewBuilder
     private var overlayView: some View {
         switch viewModel.state {
@@ -46,12 +46,12 @@ struct NewsTabView: View {
             Text("No articles found")
         }
     }
-    
+
     @Sendable
     func loadArticles() async {
         await viewModel.loadArticles()
     }
-    
+
     @Sendable
     func refresh() async {
         viewModel.taskUpdater = .init(id: .now, category: viewModel.taskUpdater.category)
