@@ -72,10 +72,6 @@ struct ArticleItemView: View {
                         }
                     } label: {
                         Image(systemName: bookmarkVM.isBookmarked(article) ? "bookmark.fill" : "bookmark")
-                            .resizable()
-                            .frame(width: 16, height: 16)
-                            .foregroundColor(bookmarkVM.isBookmarked(article) ? .yellow : .gray)
-                            .scaleEffect(bookmarkVM.isBookmarked(article) ? 1.3 : 1.0)
                     }
                     .buttonStyle(.bordered)
 
