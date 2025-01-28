@@ -21,6 +21,7 @@ struct CategorySelectorView: View {
                 GeometryReader { geo in
                     Rectangle()
                         .foregroundColor(colorScheme == .dark ? .pink : .white)
+                        .opacity(colorScheme == .dark ? 0.5 : 1)
                         .cornerRadius(6.0)
                         .padding(1)
                         .frame(width: geo.size.width / CGFloat(selectedCategory.count))
