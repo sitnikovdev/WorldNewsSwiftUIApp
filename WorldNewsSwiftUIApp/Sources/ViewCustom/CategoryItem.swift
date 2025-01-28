@@ -18,15 +18,16 @@ struct CategoryItem: View {
                     .weight(isSelected ? .bold : .medium)
                 )
                 .foregroundColor(isSelected ? selectedColor : .gray)
-                .padding(.horizontal, 8)
+                .padding(.horizontal, 4)
+                .padding(.top, 4)
                 .frame(maxWidth: .infinity)
                 .background(Color.clear)
                 .multilineTextAlignment(.center)
             item.indicatorImage
                 .font(.title)
                 .symbolRenderingMode(colorScheme == .dark ? .hierarchical : .monochrome)
-                .foregroundColor(colorScheme == .dark ? .blue : .blue)
-                .padding(.vertical, 8)
+                .foregroundColor(colorScheme == .dark ? .white : .blue)
+                .padding(.bottom, 8)
         }
     }
 
