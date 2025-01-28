@@ -65,13 +65,21 @@ class ArticleViewModel: ObservableObject {
 
 
     func loadArticles() async {
+        isTaskIsCancelled
+        state = .empty
         do {
             let articles = try await fetch(with: taskUpdater.category)
             state = .loaded(articles)
+            isTaskIsCancelled
         } catch {
+            isTaskIsCancelled
             state = .error(error)
             print("Failed to fetch data: \(error.localizedDescription)")
         }
+    }
+
+    var isTaskIsCancelled: Void {
+        if Task.isCancelled { return }
     }
 
 
@@ -87,7 +95,7 @@ class ArticleViewModel: ObservableObject {
             state = .loading
 
             let response =  try await ArticleAPIClient()
-                                .getTopHeadline(query: query, category: category)
+                .getTopHeadline(query: query, category: category)
 
             let articlesAPI = response.articles ?? []
             var articles: [Article] = []
