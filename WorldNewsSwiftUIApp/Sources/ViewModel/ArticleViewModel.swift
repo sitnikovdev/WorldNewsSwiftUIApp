@@ -79,7 +79,10 @@ class ArticleViewModel: ObservableObject {
     }
 
     var isTaskIsCancelled: Void {
-        if Task.isCancelled { return }
+        if Task.isCancelled {
+            print("TASK IS CANCELLED")
+            return
+        }
     }
 
 
