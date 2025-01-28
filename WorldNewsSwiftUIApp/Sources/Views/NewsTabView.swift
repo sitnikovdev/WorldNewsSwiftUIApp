@@ -19,7 +19,7 @@ struct NewsTabView: View {
                     .overlay(overlayView)
                     .task(id: viewModel.taskUpdater, loadArticles)
                     .refreshable(action: refresh)
-                    .navigationTitle(viewModel.taskUpdater.category.rawValue)
+                    .navigationTitle(viewModel.taskUpdater.category.rawValue.capitalized)
             }
         }
 
