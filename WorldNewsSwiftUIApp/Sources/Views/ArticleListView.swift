@@ -14,9 +14,7 @@ struct ArticleListView: View {
 
 
     var body: some View {
-
-
-        NavigationView {
+        VStack {
             List {
                 //TODO: -FIX SCELETON
                 if articles.isEmpty {

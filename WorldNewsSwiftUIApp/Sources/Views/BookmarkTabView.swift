@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct BookmarkTabView: View {
+    @EnvironmentObject var articleBookmarkViewModel: ArticleBookmarkViewModel
+    @State var searchText: String = ""
+
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            ArticleListView(articles: articles)
+                .navigationTitle("Bookmarks")
+        }
+    }
+
+    private var articles: [Article] {
+        if searchText.isEmpty {
+            return articleBookmarkViewModel.bookmarks
+        }
+        return articleBookmarkViewModel.bookmarks.filter {
+            $0.titleText.lowercased().contains(searchText.lowercased())
+            ||
+            $0.descriptionText.lowercased().contains(searchText.lowercased())
+        }
     }
 }
 
