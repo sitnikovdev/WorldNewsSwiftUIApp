@@ -10,23 +10,22 @@ public struct SelectedCategory {
 }
 
 extension Category {
-    var indicatorImage: String {
+    var indicatorImage: Image {
         switch self {
-            
         case .science:
-            return "⚛️"
+            return Image(systemName: "atom")
         case .technology:
-            return "📡"
+            return .init(systemName: "iphone")
         case .entertainment:
-            return "🎸"
+            return .init(systemName: "film")
         case .general:
-            return "🌏"
+            return .init(systemName: "questionmark.circle")
         case .business:
-            return "🪙"
+            return .init(systemName: "dollarsign")
         case .sports:
-            return "⚽️"
+            return .init(systemName: "square.and.arrow.up")
         case .health:
-            return "🥗"
+            return .init(systemName: "heart")
         }
     }
 }
