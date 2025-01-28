@@ -39,6 +39,7 @@ class ArticleViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var hasMoreData = true
 
+    private var isBookmarked: Bool = false
 
     private var query = QueryParameters(
         pageSize: 10,
@@ -85,14 +86,8 @@ class ArticleViewModel: ObservableObject {
             isLoading = true
             state = .loading
 
-            let response =  try await ArticleAPIClient().getTopHeadline(page: query.page,
-                                                                        pageSize: query.pageSize,
-                                                                        category: category,
-                                                                        country: query.language,
-                                                                        withDelay: query.withDelay,
-                                                                        isOnline: query.isOnline,
-                                                                        isSaveDB: query.saveDb
-            )
+            let response =  try await ArticleAPIClient()
+                                .getTopHeadline(query: query, category: category)
 
             let articlesAPI = response.articles ?? []
             var articles: [Article] = []
@@ -127,3 +122,12 @@ class ArticleViewModel: ObservableObject {
 
 }
 
+extension ArticleViewModel {
+    func bookmark(for article: Article)  {
+        isBookmarked.toggle()
+    }
+
+    func isBookmarked(for article: Article) -> Bool {
+        return isBookmarked
+    }
+}

@@ -15,14 +15,8 @@ public struct ArticleAPIClient {
     typealias NewsCategoryQuery = Operations.GetTopHeadlines.Input.Query.CategoryPayload
     typealias GetTopHeadlines = Operations.GetTopHeadlines.Output.Ok.Body.JsonPayload
 
-    func getTopHeadline(page: Int = 1,
-                        pageSize: Int  = 10,
-                        category: NewsCategoryQuery = .general,
-                        country: String = "us",
-                        withDelay: Bool,
-                        isOnline: Bool,
-                        isSaveDB: Bool
-
+    func getTopHeadline(query: QueryParameters,
+                        category: NewsCategoryQuery = .general
     ) async throws  -> GetTopHeadlines {
 
         let client = Client(
@@ -31,13 +25,13 @@ public struct ArticleAPIClient {
         )
         let response = try await client.getTopHeadlines(
                 query: .init(
-                    isOnline: isOnline,
-                    withDelay: false,
-                    savedb: isSaveDB,
-                    country: country,
+                    isOnline: query.isOnline,
+                    withDelay: query.withDelay,
+                    savedb: query.saveDb,
+                    country: query.language,
                     category: category,
-                    pageSize: pageSize,
-                    page: page
+                    pageSize: query.pageSize,
+                    page: query.page
                 ))
 
 

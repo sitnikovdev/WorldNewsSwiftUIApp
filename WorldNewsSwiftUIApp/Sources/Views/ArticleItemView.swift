@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ArticleItemView: View {
+    @EnvironmentObject var articleVM: ArticleViewModel
     // MARK: - PROPERTIES
     let article: Article
 
@@ -64,9 +65,27 @@ struct ArticleItemView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            toggleBookmark(for: article)
+                        }
+                    } label: {
+                        Image(systemName: articleVM.isBookmarked(for: article) ? "bookmark.fill" : "bookmark")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(articleVM.isBookmarked(for: article) ? .yellow : .gray)
+                            .scaleEffect(articleVM.isBookmarked(for: article) ? 1.3 : 1.0)
+                    }
+                    .buttonStyle(.bordered)
+
                 }
             }
             .padding([.horizontal, .bottom])
         }
+
+    }
+    private func toggleBookmark(for article: Article) {
+        // TODO: - Animation of ListView Cell with effect: Fly Away by Curve Down.
+        articleVM.bookmark(for: article)
     }
 }
