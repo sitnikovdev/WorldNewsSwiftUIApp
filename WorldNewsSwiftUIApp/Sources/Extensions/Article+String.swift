@@ -26,9 +26,6 @@ extension String {
 
 
 extension Article: Identifiable {
-    var id: UUID  {
-        UUID()
-    }
 
     var imageURL: URL? {
         guard let urlString = self.urlToImage else { return nil }

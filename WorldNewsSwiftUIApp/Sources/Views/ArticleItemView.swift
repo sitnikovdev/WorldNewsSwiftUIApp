@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ArticleItemView: View {
-    @EnvironmentObject var articleVM: ArticleViewModel
+
     // MARK: - PROPERTIES
+    @EnvironmentObject var bookmarkVM: ArticleBookmarkViewModel
     let article: Article
 
     // MARK: - BODY
@@ -70,11 +71,11 @@ struct ArticleItemView: View {
                             toggleBookmark(for: article)
                         }
                     } label: {
-                        Image(systemName: articleVM.isBookmarked(for: article) ? "bookmark.fill" : "bookmark")
+                        Image(systemName: bookmarkVM.isBookmarked(article) ? "bookmark.fill" : "bookmark")
                             .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(articleVM.isBookmarked(for: article) ? .yellow : .gray)
-                            .scaleEffect(articleVM.isBookmarked(for: article) ? 1.3 : 1.0)
+                            .frame(width: 16, height: 16)
+                            .foregroundColor(bookmarkVM.isBookmarked(article) ? .yellow : .gray)
+                            .scaleEffect(bookmarkVM.isBookmarked(article) ? 1.3 : 1.0)
                     }
                     .buttonStyle(.bordered)
 
@@ -86,6 +87,10 @@ struct ArticleItemView: View {
     }
     private func toggleBookmark(for article: Article) {
         // TODO: - Animation of ListView Cell with effect: Fly Away by Curve Down.
-//        articleVM.bookmark(for: article)
+        if bookmarkVM.isBookmarked(article) {
+            bookmarkVM.removeBookmark(for: article)
+        } else {
+            bookmarkVM.addBookmark(article)
+        }
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct ArticleSwiftUIAppApp: App {
     @StateObject var articleVM = ArticleViewModel.shared
+    @StateObject var articleBookmarkVM = ArticleBookmarkViewModel.shared
     // MARK: - PROPERTIES
 
     // MARK: - BODY
@@ -17,6 +18,7 @@ struct ArticleSwiftUIAppApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(articleVM)
+                .environmentObject(articleBookmarkVM)
         }
     }
 }

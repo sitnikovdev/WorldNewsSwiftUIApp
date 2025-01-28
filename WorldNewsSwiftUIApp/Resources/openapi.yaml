@@ -302,6 +302,8 @@ components:
     Article:
       type: object
       properties:
+        id:
+          type: string
         source:
           $ref: '#/components/schemas/Source'
         author:
