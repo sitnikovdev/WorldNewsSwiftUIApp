@@ -20,6 +20,7 @@ struct CategoryItem: View {
                 .foregroundColor(isSelected ? selectedColor : .gray)
                 .padding(.horizontal, 4)
                 .padding(.top, 4)
+                .padding(.bottom, 2)
                 .frame(maxWidth: .infinity)
                 .background(Color.clear)
                 .multilineTextAlignment(.center)
