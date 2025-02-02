@@ -12,12 +12,7 @@ struct SkeletonLoaderView: View {
         VStack {
             Rectangle()
                 .fill(Color.gray.opacity(0.2))
-                .frame(height: 40)
-                .cornerRadius(5)
-                .shimmering()
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(height: 40)
+                .frame(height: 200)
                 .cornerRadius(5)
                 .shimmering()
             Rectangle()
@@ -57,7 +52,7 @@ struct Shimmering: ViewModifier {
                     .repeatForever(autoreverses: false), value: offset
                 ))
                 .onAppear {
-                    offset = UIScreen.main.bounds.width
+                    offset = UIScreen.main.bounds.width - 40
                 }
     }
 }
