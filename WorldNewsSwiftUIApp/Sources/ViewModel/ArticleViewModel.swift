@@ -79,12 +79,10 @@ class ArticleViewModel: ObservableObject {
     }
 
     func remove(_ id: String) async {
-//            let articles = try await fetch(with: taskUpdater.category)
-            if case let .loaded(articles) = state {
-                let deleted = articles.filter {$0.id != id}
-                state = .loaded(deleted)
-//                self.taskUpdater = .init(id: .now, category: self.taskUpdater.category)
-            }
+        if case let .loaded(articles) = state {
+            let deleted = articles.filter {$0.id != id}
+            state = .loaded(deleted)
+        }
     }
 
     var isTaskIsCancelled: Void {

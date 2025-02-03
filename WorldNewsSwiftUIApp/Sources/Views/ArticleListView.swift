@@ -52,7 +52,6 @@ struct ArticleListView: View {
                                         }
 
                                     }
-                                    
                                 }
 
                         }
