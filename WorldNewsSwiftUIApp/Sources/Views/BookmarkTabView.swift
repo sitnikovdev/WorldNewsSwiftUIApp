@@ -10,12 +10,11 @@ import SwiftUI
 struct BookmarkTabView: View {
     @EnvironmentObject var articleBookmarkViewModel: ArticleBookmarkViewModel
     @State var searchText: String = ""
-    @State var isFavorite = false
 
 
     var body: some View {
         NavigationView {
-            ArticleListView(isFavorite: $isFavorite, articles: articles)
+            ArticleListView(articles: articles)
                 .navigationTitle("Bookmarks")
         }
     }

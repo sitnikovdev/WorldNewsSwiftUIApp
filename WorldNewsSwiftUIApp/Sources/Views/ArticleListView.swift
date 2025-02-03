@@ -13,7 +13,6 @@ struct ArticleListView: View {
     @EnvironmentObject var articleVM: ArticleViewModel
     @EnvironmentObject var bookmarkVM: ArticleBookmarkViewModel
     @State private var cancellable: AnyCancellable?
-    @Binding  var isFavorite: Bool
     @State private var bookmarked: Article?
     @State private var removed: Article?
 
@@ -32,13 +31,8 @@ struct ArticleListView: View {
             .first()
             .compactMap { $0 as? Article } // Filter out nil values
             .sink { recived in
-//                isFavorite = bookmarkVM.isBookmarked(recived)
-//                if isFavorite {
                 if  let id = recived.id {
                     bookmarked = recived
-                    //                }
-                    print("isFavorite in List: \(isFavorite)")
-                    print("id: \(recived)")
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8){
                         Task {

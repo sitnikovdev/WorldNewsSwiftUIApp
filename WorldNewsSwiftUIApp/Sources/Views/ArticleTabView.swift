@@ -6,20 +6,17 @@
 //
 
 import SwiftUI
-import Combine
 
 struct ArticleTabView: View {
     @EnvironmentObject private var viewModel: ArticleViewModel
     @State private var title: String = "Loading..."
-    @State private var cancellable: AnyCancellable?
-    @State private var isFavorite = false
 
 
     var body: some View {
         NavigationView {
             VStack {
                 CategorySelectorView(selectedItem: $viewModel.taskUpdater.category)
-                ArticleListView(isFavorite: $isFavorite, articles: articles)
+                ArticleListView(articles: articles)
                     .overlay(overlayView)
                     .task(id: viewModel.taskUpdater, loadArticles)
                     .refreshable(action: refresh)
