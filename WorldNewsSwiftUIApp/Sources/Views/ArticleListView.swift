@@ -15,21 +15,24 @@ struct ArticleListView: View {
     @State private var isFavorite: Bool = false
 
     var articles: [Article]
-           private func removeBookmarked() {
-            cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
-                .map { notification in
-                    notification.userInfo?["id"]
-                }
-                .sink { recived in
-                    if  let id = recived as? String   {
-                        isFavorite = true
-                        Task {
-//                            await remove(for: id)
-                        }
+    private func animateBookmarked() {
+        cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
+            .map { notification in
+                notification.userInfo?["id"]
+            }
+            .first()
+            .compactMap { $0 as? String } // Filter out nil values
+            .sink { recived in
 
+                    isFavorite = true
+                    print("isFavorite: \(isFavorite)")
+                    print("id: \(recived)")
+
+                    Task {
+                        //                            await remove(for: id)
                     }
-                }
-        }
+            }
+    }
 
 
     var body: some View {
@@ -57,7 +60,9 @@ struct ArticleListView: View {
                                     await articleVM.loadArticles()
                                 }
                             }
-                           
+
+                            // TODO: - Animate bookmarked article
+                            animateBookmarked()
 
                         }
                 }
