@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import Combine
 
 
 struct ArticleListView: View {
     @EnvironmentObject var articleVM: ArticleViewModel
-    let articles: [Article]
 
+    @State var cancellable: AnyCancellable?
+    var articles: [Article]
+
+//    func remove(for id: String)  {
+//        guard let index = articles?.firstIndex(where: { $0.id == id }) else { return }
+//        articles?.remove(at: index)
+//    }
 
     var body: some View {
         VStack {
@@ -35,6 +42,23 @@ struct ArticleListView: View {
                                     await articleVM.loadArticles()
                                 }
                             }
+                            cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
+                                .map { notification in
+//                                    print("Notification received: \(notification.userInfo?["id"])")
+                                    notification.userInfo?["id"] //as? String
+                                }
+                                .sink { recived in
+                                    if  let id = recived as? String   {
+                                        print("recived notification is \(id)")
+                                        guard let index = articles.firstIndex(where: { $0.id == id }) else { return }
+                                        print("articles count before remove is \(articles.count)")
+                                        var newarticles = articles
+                                        newarticles.remove(at: index)
+                                        print("articles count after remove is \(newarticles.count)")
+                                    }
+//                                    let article: Article = recived["article"]
+                                }
+
                         }
                 }
             }

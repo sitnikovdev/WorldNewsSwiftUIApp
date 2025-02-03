@@ -85,10 +85,6 @@ class ArticleViewModel: ObservableObject {
         }
     }
 
-    func removeArticle(for article: Article) {
-        guard let index = articles.firstIndex(where: { $0.id == article.id }) else { return }
-        articles.remove(at: index)
-    }
 
 
     // MARK: - RETURN ARTICLE FROM API CALL
@@ -138,12 +134,15 @@ class ArticleViewModel: ObservableObject {
 
 }
 
+
+extension Notification.Name {
+    static let didBookmarkArticle = Notification.Name("didBookmarkArticle")
+}
+
 extension ArticleViewModel {
-    func bookmark(for article: Article)  {
-        isBookmarked.toggle()
+    func post(_ article: Article) {
+        NotificationCenter.default.post(name: .didBookmarkArticle, object: self, userInfo: ["id": article.id ?? ""])
     }
 
-    func isBookmarked(for article: Article) -> Bool {
-        return isBookmarked
-    }
+
 }

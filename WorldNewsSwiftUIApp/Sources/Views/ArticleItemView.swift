@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ArticleItemView: View {
 
     // MARK: - PROPERTIES
@@ -87,6 +88,8 @@ struct ArticleItemView: View {
         if bookmarkVM.isBookmarked(article) {
             bookmarkVM.removeBookmark(for: article)
         } else {
+            // TODO: - Remove article on bookmarked
+            articleVM.post(article)
             bookmarkVM.addBookmark(article)
         }
     }
