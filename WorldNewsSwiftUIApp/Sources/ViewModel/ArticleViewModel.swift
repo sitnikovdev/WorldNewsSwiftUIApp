@@ -34,7 +34,7 @@ class ArticleViewModel: ObservableObject {
     @Published var taskUpdater: TaskUpdater
     @Published var state: CurrentState<Article> = .empty
 
-    @Published var articleItems: [Article] = []
+    @Published var articles: [Article] = []
 
     @Published var isLoading = false
     @Published var hasMoreData = true
@@ -85,6 +85,11 @@ class ArticleViewModel: ObservableObject {
         }
     }
 
+    func removeArticle(for article: Article) {
+        guard let index = articles.firstIndex(where: { $0.id == article.id }) else { return }
+        articles.remove(at: index)
+    }
+
 
     // MARK: - RETURN ARTICLE FROM API CALL
     func fetch(with category: Category ) async throws -> [Article] {
@@ -127,7 +132,7 @@ class ArticleViewModel: ObservableObject {
     private func logs(totalPages: Int, totalResults: Int) {
         print("Total pages: \(totalPages)")
         print("Total results: \(totalResults)")
-        print("Total items: \(articleItems.count)")
+        print("Total items: \(articles.count)")
         print("Current page: \(query.page)")
     }
 

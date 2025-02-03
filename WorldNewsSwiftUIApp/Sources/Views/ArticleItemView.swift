@@ -11,6 +11,7 @@ struct ArticleItemView: View {
 
     // MARK: - PROPERTIES
     @EnvironmentObject var bookmarkVM: ArticleBookmarkViewModel
+    @EnvironmentObject var articleVM: ArticleViewModel
     let article: Article
 
     // MARK: - BODY
