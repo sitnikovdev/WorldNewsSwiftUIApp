@@ -28,20 +28,21 @@ struct ArticleTabView: View {
                     .refreshable(action: refresh)
                     .navigationTitle(viewModel.taskUpdater.category.rawValue.capitalized)
                     .onAppear {
-                        removeArticle()
+                        removeBookmarked()
                     }
             }
         }
 
     }
 
-    private func removeArticle() {
+    private func removeBookmarked() {
         cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
             .map { notification in
                 notification.userInfo?["id"]
             }
             .sink { recived in
                 if  let id = recived as? String   {
+                    isFavorite = true
                     Task {
                         await remove(for: id)
                     }
