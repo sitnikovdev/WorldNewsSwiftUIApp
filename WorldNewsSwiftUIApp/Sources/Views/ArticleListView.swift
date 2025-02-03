@@ -11,6 +11,7 @@ import Combine
 
 struct ArticleListView: View {
     @EnvironmentObject var articleVM: ArticleViewModel
+    @EnvironmentObject var bookmarkVM: ArticleBookmarkViewModel
     @State private var cancellable: AnyCancellable?
     @Binding  var isFavorite: Bool
 
@@ -18,12 +19,12 @@ struct ArticleListView: View {
     private func animateBookmarked() {
         cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
             .map { notification in
-                notification.userInfo?["id"]
+                notification.userInfo?["article"]
             }
             .first()
-            .compactMap { $0 as? String } // Filter out nil values
+            .compactMap { $0 as? Article } // Filter out nil values
             .sink { recived in
-                    isFavorite = true
+                isFavorite = bookmarkVM.isBookmarked(recived)
                     print("isFavorite in List: \(isFavorite)")
                     print("id: \(recived)")
 
@@ -52,12 +53,12 @@ struct ArticleListView: View {
                             NavigationLink("", destination: ArticleDetailView(article: item))
                                 .opacity(0) // Hide the NavigationLink
                         )
-                        .scaleEffect(isFavorite  ? 0.3 : 1)
-                        .offset(x: isFavorite ? 130 : 0,
-                                y: isFavorite  ? 500 : 0)
-                        .rotation3DEffect(isFavorite ?  .degrees(360.0) : .degrees(0), axis: (x: 1, y: 0, z: 0))
-                        .zIndex(isFavorite ? 3 : 0)
-                        .animation(.snappy, value: isFavorite)
+//                        .scaleEffect(isFavorite  ? 0.3 : 1)
+//                        .offset(x: isFavorite ? 130 : 0,
+//                                y: isFavorite  ? 500 : 0)
+//                        .rotation3DEffect(isFavorite ?  .degrees(360.0) : .degrees(0), axis: (x: 1, y: 0, z: 0))
+//                        .zIndex(isFavorite ? 3 : 0)
+//                        .animation(.snappy, value: isFavorite)
                         .onAppear {
                             if  case .loaded = articleVM.state,
                                 item == articles.last {

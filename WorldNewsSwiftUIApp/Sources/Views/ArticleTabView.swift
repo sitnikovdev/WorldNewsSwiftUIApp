@@ -38,10 +38,10 @@ struct ArticleTabView: View {
     private func removeBookmarked() {
         cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
             .map { notification in
-                notification.userInfo?["id"]
+                notification.userInfo?["article"]
             }
             .sink { recived in
-                if  let id = recived as? String   {
+                if  let article = recived as? Article, let id = article.id  {
                     isFavorite = false
 
                     print("isFavorite in TabView: \(isFavorite)")

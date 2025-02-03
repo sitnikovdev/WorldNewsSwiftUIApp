@@ -148,7 +148,7 @@ extension Notification.Name {
 
 extension ArticleViewModel {
     func post(_ article: Article) {
-        NotificationCenter.default.post(name: .didBookmarkArticle, object: self, userInfo: ["id": article.id ?? ""])
+        NotificationCenter.default.post(name: .didBookmarkArticle, object: self, userInfo: ["article": article])
     }
 
 
