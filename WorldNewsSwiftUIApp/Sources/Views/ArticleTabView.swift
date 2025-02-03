@@ -12,7 +12,6 @@ struct ArticleTabView: View {
     @EnvironmentObject private var viewModel: ArticleViewModel
     @State private var title: String = "Loading..."
     @State private var cancellable: AnyCancellable?
-    @State private var isFavorite: Bool = false
 
     func remove(for id: String) async  {
         await viewModel.remove(id)
@@ -42,7 +41,6 @@ struct ArticleTabView: View {
             }
             .sink { recived in
                 if  let id = recived as? String   {
-                    isFavorite = true
                     Task {
                         await remove(for: id)
                     }

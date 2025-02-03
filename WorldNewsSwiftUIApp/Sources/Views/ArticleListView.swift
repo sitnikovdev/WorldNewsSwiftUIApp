@@ -6,15 +6,36 @@
 //
 
 import SwiftUI
+import Combine
 
 
 struct ArticleListView: View {
     @EnvironmentObject var articleVM: ArticleViewModel
+    @State private var cancellable: AnyCancellable?
+    @State private var isFavorite: Bool = false
 
     var articles: [Article]
+           private func removeBookmarked() {
+            cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
+                .map { notification in
+                    notification.userInfo?["id"]
+                }
+                .sink { recived in
+                    if  let id = recived as? String   {
+                        isFavorite = true
+                        Task {
+//                            await remove(for: id)
+                        }
+
+                    }
+                }
+        }
 
 
     var body: some View {
+
+
+
         VStack {
             List {
                 //TODO: -FIX SCELETON
