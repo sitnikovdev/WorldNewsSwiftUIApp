@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewsTabView: View {
+struct ArticleTabView: View {
     @EnvironmentObject private var viewModel: ArticleViewModel
     @State private var title: String = "Loading..."
 
