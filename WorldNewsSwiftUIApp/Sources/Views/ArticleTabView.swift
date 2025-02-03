@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ArticleTabView: View {
     @EnvironmentObject private var viewModel: ArticleViewModel
     @State private var title: String = "Loading..."
+    @State var cancellable: AnyCancellable?
+
+    func remove(for id: String) async  {
+        await viewModel.remove(id)
+    }
 
     var body: some View {
         NavigationView {
@@ -20,6 +26,20 @@ struct ArticleTabView: View {
                     .task(id: viewModel.taskUpdater, loadArticles)
                     .refreshable(action: refresh)
                     .navigationTitle(viewModel.taskUpdater.category.rawValue.capitalized)
+                    .onAppear {
+                        cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
+                            .map { notification in
+                                notification.userInfo?["id"]
+                            }
+                            .sink { recived in
+                                if  let id = recived as? String   {
+                                    Task {
+                                        await remove(for: id)
+                                    }
+
+                                }
+                            }
+                    }
             }
         }
 
