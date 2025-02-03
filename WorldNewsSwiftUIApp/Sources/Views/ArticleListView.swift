@@ -40,8 +40,10 @@ struct ArticleListView: View {
                     print("isFavorite in List: \(isFavorite)")
                     print("id: \(recived)")
 
-                    Task {
-//                        await remove(for:id)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8){
+                        Task {
+                            await remove(for:id)
+                        }
                     }
                 }
             }
@@ -71,8 +73,7 @@ struct ArticleListView: View {
                                 y: bookmarked?.id == item.id  ? 500 : 0)
                         .rotation3DEffect(bookmarked?.id == item.id ?  .degrees(360.0) : .degrees(0), axis: (x: 1, y: 0, z: 0))
                         .zIndex(bookmarked?.id == item.id ? 3 : 0)
-                        .animation(.snappy.speed(0.1), value: bookmarked)
-                        .animation(.easeOut.speed(0.1).delay(1.7), value: removed)
+                        .animation(.snappy.speed(0.8), value: bookmarked)
                         .onAppear {
                             if  case .loaded = articleVM.state,
                                 item == articles.last {
