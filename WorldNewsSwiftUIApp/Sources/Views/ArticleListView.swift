@@ -43,23 +43,16 @@ struct ArticleListView: View {
                             }
                             cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
                                 .map { notification in
-//                                    print("Notification received: \(notification.userInfo?["id"])")
-                                    notification.userInfo?["id"] //as? String
+                                    notification.userInfo?["id"]
                                 }
                                 .sink { recived in
                                     if  let id = recived as? String   {
-                                        print("recived notification is \(id)")
-                                        guard let index = articles.firstIndex(where: { $0.id == id }) else { return }
-                                        print("articles count before remove is \(articles.count)")
-                                        var newarticles = articles
-                                        newarticles.remove(at: index)
-                                        print("articles count after remove is \(newarticles.count)")
                                         Task {
                                             await remove(for: id)
                                         }
 
                                     }
-//                                    let article: Article = recived["article"]
+                                    
                                 }
 
                         }
