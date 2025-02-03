@@ -42,9 +42,10 @@ struct ArticleTabView: View {
             }
             .sink { recived in
                 if  let id = recived as? String   {
+                    isFavorite = false
 
-                    print("isFavorite: \(isFavorite)")
-                    print("id: \(id)")
+                    print("isFavorite in TabView: \(isFavorite)")
+//                    print("id: \(id)")
                     Task {
                         await remove(for: id)
                     }

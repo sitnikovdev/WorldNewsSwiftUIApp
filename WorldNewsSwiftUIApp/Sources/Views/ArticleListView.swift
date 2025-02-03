@@ -23,10 +23,9 @@ struct ArticleListView: View {
             .first()
             .compactMap { $0 as? String } // Filter out nil values
             .sink { recived in
-
                     isFavorite = true
-//                    print("isFavorite: \(isFavorite)")
-//                    print("id: \(recived)")
+                    print("isFavorite in List: \(isFavorite)")
+                    print("id: \(recived)")
 
                     Task {
                         //                            await remove(for: id)
