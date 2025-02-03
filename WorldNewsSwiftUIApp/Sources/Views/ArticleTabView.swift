@@ -13,6 +13,7 @@ struct ArticleTabView: View {
     @State private var title: String = "Loading..."
     @State private var cancellable: AnyCancellable?
     @State private var isFavorite = false
+    @State private var removed: Article?
 
     func remove(for id: String) async  {
         await viewModel.remove(id)
@@ -28,7 +29,7 @@ struct ArticleTabView: View {
                     .refreshable(action: refresh)
                     .navigationTitle(viewModel.taskUpdater.category.rawValue.capitalized)
                     .onAppear {
-//                            removeBookmarked()
+                            removeBookmarked()
                     }
             }
         }
@@ -43,6 +44,7 @@ struct ArticleTabView: View {
             .sink { recived in
                 if  let article = recived as? Article, let id = article.id  {
                     isFavorite = false
+                    removed = recived as? Article
 
                     print("isFavorite in TabView: \(isFavorite)")
 //                    print("id: \(id)")
