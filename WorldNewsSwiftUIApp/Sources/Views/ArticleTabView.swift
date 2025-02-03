@@ -28,7 +28,7 @@ struct ArticleTabView: View {
                     .refreshable(action: refresh)
                     .navigationTitle(viewModel.taskUpdater.category.rawValue.capitalized)
                     .onAppear {
-                        removeBookmarked()
+//                            removeBookmarked()
                     }
             }
         }

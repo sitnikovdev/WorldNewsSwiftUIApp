@@ -14,6 +14,7 @@ struct ArticleListView: View {
     @EnvironmentObject var bookmarkVM: ArticleBookmarkViewModel
     @State private var cancellable: AnyCancellable?
     @Binding  var isFavorite: Bool
+    @State private var bookmarked: Article?
 
     var articles: [Article]
     private func animateBookmarked() {
@@ -25,6 +26,9 @@ struct ArticleListView: View {
             .compactMap { $0 as? Article } // Filter out nil values
             .sink { recived in
                 isFavorite = bookmarkVM.isBookmarked(recived)
+//                if isFavorite {
+                   bookmarked = recived
+//                }
                 print("isFavorite in List: \(isFavorite)")
                 print("id: \(recived)")
 
@@ -53,12 +57,12 @@ struct ArticleListView: View {
                             NavigationLink("", destination: ArticleDetailView(article: item))
                                 .opacity(0) // Hide the NavigationLink
                         )
-                    //                        .scaleEffect(isFavorite  ? 0.3 : 1)
-                    //                        .offset(x: isFavorite ? 130 : 0,
-                    //                                y: isFavorite  ? 500 : 0)
-                    //                        .rotation3DEffect(isFavorite ?  .degrees(360.0) : .degrees(0), axis: (x: 1, y: 0, z: 0))
-                    //                        .zIndex(isFavorite ? 3 : 0)
-                    //                        .animation(.snappy, value: isFavorite)
+                        .scaleEffect(bookmarked?.id == item.id  ? 0.3 : 1)
+                        .offset(x: bookmarked?.id == item.id ? 130 : 0,
+                                y: bookmarked?.id == item.id  ? 500 : 0)
+                        .rotation3DEffect(bookmarked?.id == item.id ?  .degrees(360.0) : .degrees(0), axis: (x: 1, y: 0, z: 0))
+                        .zIndex(bookmarked?.id == item.id ? 3 : 0)
+                        .animation(.snappy.speed(0.1), value: bookmarked)
                         .onAppear {
                             if  case .loaded = articleVM.state,
                                 item == articles.last {
