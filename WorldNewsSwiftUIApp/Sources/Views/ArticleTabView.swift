@@ -12,6 +12,7 @@ struct ArticleTabView: View {
     @EnvironmentObject private var viewModel: ArticleViewModel
     @State private var title: String = "Loading..."
     @State private var cancellable: AnyCancellable?
+    @State private var isFavorite = false
 
     func remove(for id: String) async  {
         await viewModel.remove(id)
@@ -21,7 +22,7 @@ struct ArticleTabView: View {
         NavigationView {
             VStack {
                 CategorySelectorView(selectedItem: $viewModel.taskUpdater.category)
-                ArticleListView(articles: articles)
+                ArticleListView(isFavorite: $isFavorite, articles: articles)
                     .overlay(overlayView)
                     .task(id: viewModel.taskUpdater, loadArticles)
                     .refreshable(action: refresh)
@@ -41,6 +42,9 @@ struct ArticleTabView: View {
             }
             .sink { recived in
                 if  let id = recived as? String   {
+
+                    print("isFavorite: \(isFavorite)")
+                    print("id: \(id)")
                     Task {
                         await remove(for: id)
                     }

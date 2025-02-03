@@ -12,7 +12,7 @@ import Combine
 struct ArticleListView: View {
     @EnvironmentObject var articleVM: ArticleViewModel
     @State private var cancellable: AnyCancellable?
-    @State private var isFavorite: Bool = false
+    @Binding  var isFavorite: Bool
 
     var articles: [Article]
     private func animateBookmarked() {
@@ -25,8 +25,8 @@ struct ArticleListView: View {
             .sink { recived in
 
                     isFavorite = true
-                    print("isFavorite: \(isFavorite)")
-                    print("id: \(recived)")
+//                    print("isFavorite: \(isFavorite)")
+//                    print("id: \(recived)")
 
                     Task {
                         //                            await remove(for: id)
