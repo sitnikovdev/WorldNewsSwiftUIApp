@@ -15,10 +15,9 @@ struct ArticleListView: View {
     @State var cancellable: AnyCancellable?
     var articles: [Article]
 
-//    func remove(for id: String)  {
-//        guard let index = articles?.firstIndex(where: { $0.id == id }) else { return }
-//        articles?.remove(at: index)
-//    }
+    func remove(for id: String) async  {
+        await articleVM.remove(id)
+    }
 
     var body: some View {
         VStack {
@@ -55,6 +54,10 @@ struct ArticleListView: View {
                                         var newarticles = articles
                                         newarticles.remove(at: index)
                                         print("articles count after remove is \(newarticles.count)")
+                                        Task {
+                                            await remove(for: id)
+                                        }
+
                                     }
 //                                    let article: Article = recived["article"]
                                 }

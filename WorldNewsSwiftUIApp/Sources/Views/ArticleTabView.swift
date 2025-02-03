@@ -26,6 +26,7 @@ struct ArticleTabView: View {
     }
 
     var articles: [Article] {
+
         if case let .loaded(articles) = viewModel.state {
             return articles
         } else {
