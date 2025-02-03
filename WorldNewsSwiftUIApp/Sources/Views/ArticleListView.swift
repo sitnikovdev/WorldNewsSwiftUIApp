@@ -25,12 +25,12 @@ struct ArticleListView: View {
             .compactMap { $0 as? Article } // Filter out nil values
             .sink { recived in
                 isFavorite = bookmarkVM.isBookmarked(recived)
-                    print("isFavorite in List: \(isFavorite)")
-                    print("id: \(recived)")
+                print("isFavorite in List: \(isFavorite)")
+                print("id: \(recived)")
 
-                    Task {
-                        //                            await remove(for: id)
-                    }
+                Task {
+                    //                            await remove(for: id)
+                }
             }
     }
 
@@ -53,12 +53,12 @@ struct ArticleListView: View {
                             NavigationLink("", destination: ArticleDetailView(article: item))
                                 .opacity(0) // Hide the NavigationLink
                         )
-//                        .scaleEffect(isFavorite  ? 0.3 : 1)
-//                        .offset(x: isFavorite ? 130 : 0,
-//                                y: isFavorite  ? 500 : 0)
-//                        .rotation3DEffect(isFavorite ?  .degrees(360.0) : .degrees(0), axis: (x: 1, y: 0, z: 0))
-//                        .zIndex(isFavorite ? 3 : 0)
-//                        .animation(.snappy, value: isFavorite)
+                    //                        .scaleEffect(isFavorite  ? 0.3 : 1)
+                    //                        .offset(x: isFavorite ? 130 : 0,
+                    //                                y: isFavorite  ? 500 : 0)
+                    //                        .rotation3DEffect(isFavorite ?  .degrees(360.0) : .degrees(0), axis: (x: 1, y: 0, z: 0))
+                    //                        .zIndex(isFavorite ? 3 : 0)
+                    //                        .animation(.snappy, value: isFavorite)
                         .onAppear {
                             if  case .loaded = articleVM.state,
                                 item == articles.last {
