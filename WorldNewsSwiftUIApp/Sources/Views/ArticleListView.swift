@@ -15,8 +15,15 @@ struct ArticleListView: View {
     @State private var cancellable: AnyCancellable?
     @Binding  var isFavorite: Bool
     @State private var bookmarked: Article?
+    @State private var removed: Article?
 
     var articles: [Article]
+
+    private func remove(for id: String) async  {
+        await articleVM.remove(id)
+    }
+
+
     private func animateBookmarked() {
         cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
             .map { notification in
@@ -25,15 +32,17 @@ struct ArticleListView: View {
             .first()
             .compactMap { $0 as? Article } // Filter out nil values
             .sink { recived in
-                isFavorite = bookmarkVM.isBookmarked(recived)
+//                isFavorite = bookmarkVM.isBookmarked(recived)
 //                if isFavorite {
-                   bookmarked = recived
-//                }
-                print("isFavorite in List: \(isFavorite)")
-                print("id: \(recived)")
+                if  let id = recived.id {
+                    bookmarked = recived
+                    //                }
+                    print("isFavorite in List: \(isFavorite)")
+                    print("id: \(recived)")
 
-                Task {
-                    //                            await remove(for: id)
+                    Task {
+//                        await remove(for:id)
+                    }
                 }
             }
     }
@@ -63,6 +72,7 @@ struct ArticleListView: View {
                         .rotation3DEffect(bookmarked?.id == item.id ?  .degrees(360.0) : .degrees(0), axis: (x: 1, y: 0, z: 0))
                         .zIndex(bookmarked?.id == item.id ? 3 : 0)
                         .animation(.snappy.speed(0.1), value: bookmarked)
+                        .animation(.easeOut.speed(0.1).delay(1.7), value: removed)
                         .onAppear {
                             if  case .loaded = articleVM.state,
                                 item == articles.last {
@@ -73,7 +83,6 @@ struct ArticleListView: View {
 
                             // TODO: - Animate bookmarked article
                             animateBookmarked()
-
                         }
                 }
             }

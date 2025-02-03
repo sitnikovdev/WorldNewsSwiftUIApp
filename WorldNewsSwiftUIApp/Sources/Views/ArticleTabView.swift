@@ -13,11 +13,7 @@ struct ArticleTabView: View {
     @State private var title: String = "Loading..."
     @State private var cancellable: AnyCancellable?
     @State private var isFavorite = false
-    @State private var removed: Article?
 
-    func remove(for id: String) async  {
-        await viewModel.remove(id)
-    }
 
     var body: some View {
         NavigationView {
@@ -28,33 +24,12 @@ struct ArticleTabView: View {
                     .task(id: viewModel.taskUpdater, loadArticles)
                     .refreshable(action: refresh)
                     .navigationTitle(viewModel.taskUpdater.category.rawValue.capitalized)
-                    .onAppear {
-                            removeBookmarked()
-                    }
             }
         }
 
     }
 
-    private func removeBookmarked() {
-        cancellable = NotificationCenter.default.publisher(for: .didBookmarkArticle)
-            .map { notification in
-                notification.userInfo?["article"]
-            }
-            .sink { recived in
-                if  let article = recived as? Article, let id = article.id  {
-                    isFavorite = false
-                    removed = recived as? Article
-
-                    print("isFavorite in TabView: \(isFavorite)")
-//                    print("id: \(id)")
-                    Task {
-                        await remove(for: id)
-                    }
-
-                }
-            }
-    }
+    
 
     var articles: [Article] {
 
