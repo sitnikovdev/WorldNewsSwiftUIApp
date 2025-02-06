@@ -13,8 +13,25 @@ struct AboutScreen: View {
 
     var body: some View {
         VStack {
-            Text("About Screen")
-                .font(.title)
+            Text("Top headlines")
+                .font(.system(size: 32))
+                .padding(.top)
+            Spacer()
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Futures:")
+                    .font(.system(size: 24))
+                    .padding(.bottom, 4)
+                Text("- Apple Open API framework")
+                Text("- Custom Navigation")
+                Text("- Custom Tab View")
+                Text("- Custom Picker View")
+                Text("- Pagination")
+                Text("- Bookmarks")
+                Text("- Animatable bookmarked")
+            } .font(.system(size: 20))
+            Spacer()
+            Text("Version 1.0.0")
+            Spacer()
         }
         .navigationTitle("About")
         .toolbar {
@@ -27,4 +44,8 @@ struct AboutScreen: View {
             }
         }
     }
+}
+
+#Preview {
+    AboutScreen()
 }
