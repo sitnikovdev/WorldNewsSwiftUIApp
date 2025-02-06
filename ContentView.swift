@@ -10,15 +10,16 @@ import Foundation
 
 struct ContentView: View {
     var body: some View {
-        TabView {
-            ArticleTabView()
-                .tabItem {
-                    Label("News", systemImage: "newspaper")
-                }
-            BookmarkTabView()
-                .tabItem {
-                    Label("Bookmarks", systemImage: "bookmark.fill")
-                }
-        }
+        RootView()
+//        TabView {
+//            ArticleTabView()
+//                .tabItem {
+//                    Label("News", systemImage: "newspaper")
+//                }
+//            BookmarkTabView()
+//                .tabItem {
+//                    Label("Bookmarks", systemImage: "bookmark.fill")
+//                }
+//        }
     }
 }
