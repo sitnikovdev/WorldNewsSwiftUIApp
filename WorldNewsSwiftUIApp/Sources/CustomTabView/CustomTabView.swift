@@ -90,7 +90,7 @@ struct CustomTabView: View {
                 .tag(Tab.main)
 
                 NavigationStack {
-                    SecondTab()
+                    BookmarkTabView()
                 }
                 .tag(Tab.second)
 
