@@ -58,19 +58,6 @@ struct SecondTab: View {
 
 } // SECOND TAB ITEM
 
-// MARK: -SCREENS
-struct HomeView: View {
-    var body: some View {
-        Text("Home")
-    }
-}
-
-struct BookmarkView: View {
-    var body: some View {
-        Text("Bookmark")
-    }
-}
-
 // MARK: - CUSTOM TAB VIEW
 struct CustomTabView: View {
 
@@ -123,12 +110,12 @@ private struct TabBar: View {
 
             } label: {
                 VStack {
-                    Image(systemName: "newspaper")
+                    Image(systemName: "radio")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 22)
                     if selectedTab == .main {
-                        Text("Home")
+                        Text("News")
                             .font(.system(size: 11))
                     }
                 } // NEWS ITEM TAB
