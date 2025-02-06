@@ -16,7 +16,7 @@
 5. Кастомный навигейшен стек
 
 ### Дополнительно, в качестве самостоятельного решения:
-- Сохранение статей в базе PostgresSQL на Vapor сервере https://github.com/sitnikovdev/WorldNews-Server.git
+- Сохранение и обновление статей в базе PostgresSQL на Vapor сервере https://github.com/sitnikovdev/WorldNews-Server.git
 - Создание докер контейнера и размещение его на хостинге railway
 - Публикация API через Swager интерфейс: https://worldnews-server-production.up.railway.app/api
    
