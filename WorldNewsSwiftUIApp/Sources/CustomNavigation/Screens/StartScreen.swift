@@ -10,30 +10,38 @@ import SwiftUI
 
 struct StartScreen: View {
     @StateObject private var router = NavigationRouter.shared
-    
+
     var body: some View {
 
         VStack(spacing: 20) {
 
-            // CONTINUE
-            // Continue button is shown only if some item was previously selected
-            if let _ = router.selectedItem {
+            Spacer()
+            Button {
 
-                Button("Continue") {
-
-                    if let item = router.selectedItem {
-                        // Router in action - navigating to tab view with selected item
-                        router.navigate(to: .tabView(item: item))
-                    }
+                if let item = router.selectedItem {
+                    // Router in action - navigating to tab view with selected item
+                    router.navigate(to: .tabView(item: item))
                 }
+            } label: {
+                Text("Continue")
+                    .font(.system(size: 32))
             }
+            .padding()
 
             // ABOUT
-            Button("About") {
+            Button {
                 router.navigate(to: .about)
+            } label: {
+                Text("About")
+                    .font(.system(size: 24))
             }
+            Spacer()
         }
         .buttonStyle(.borderedProminent)
         .padding()
     }
+}
+
+#Preview {
+    StartScreen()
 }
