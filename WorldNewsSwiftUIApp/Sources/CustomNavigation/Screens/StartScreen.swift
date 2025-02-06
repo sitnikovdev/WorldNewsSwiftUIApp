@@ -28,12 +28,6 @@ struct StartScreen: View {
                 }
             }
 
-            //some other UI components
-            // NEW ITEM
-            Button("New Item") {
-                router.navigate(to: .itemSelection)
-            }
-
             // ABOUT
             Button("About") {
                 router.navigate(to: .about)

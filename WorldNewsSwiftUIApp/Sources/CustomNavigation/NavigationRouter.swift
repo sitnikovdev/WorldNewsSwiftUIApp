@@ -23,7 +23,7 @@ final class NavigationRouter: ObservableObject {
 
     @Published var selectedTab: Tab = .main
 
-    @Published private(set) var selectedItem: String? = nil
+    @Published private(set) var selectedItem: String? = "News"
 
     // Navigation stack state for each tab
     @Published var mainTabPath: [MainTabDestination] = []
