@@ -165,7 +165,4 @@ private struct TabBar: View {
 
 } // TABBAR
 
-#Preview {
-    CustomTabView(item: "Home")
-}
 

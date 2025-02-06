@@ -32,6 +32,12 @@ struct AboutScreen: View {
             Spacer()
             Text("Version 1.0.2")
             Spacer()
+            Button {
+                router.navigate(to: .start)
+            } label: {
+                Text("OK")
+            }
+            Spacer()
         }
         .navigationTitle("About")
         .toolbar {
