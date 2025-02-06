@@ -30,7 +30,7 @@ struct AboutScreen: View {
                 Text("- Animatable bookmarked")
             } .font(.system(size: 20))
             Spacer()
-            Text("Version 1.0.0")
+            Text("Version 1.0.2")
             Spacer()
         }
         .navigationTitle("About")
