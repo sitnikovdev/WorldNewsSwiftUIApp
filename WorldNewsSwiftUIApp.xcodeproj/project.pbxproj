@@ -9,29 +9,26 @@
 /* Begin PBXBuildFile section */
 		1A0372CE2D2F17D600A4CDFB /* OpenAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 1A0372CD2D2F17D600A4CDFB /* OpenAPIRuntime */; };
 		1A0372D02D2F181300A4CDFB /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 1A0372CF2D2F181300A4CDFB /* OpenAPIURLSession */; };
+		1AAB35F02D4A1E2200B99784 /* ArticleSwiftUIAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAB35D42D4A1E2200B99784 /* ArticleSwiftUIAppApp.swift */; };
+		1AAB35F12D4A1E2200B99784 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAB35D52D4A1E2200B99784 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1A4DF1082D2F0DDF00D3B860 /* WorldNewsSwiftUIApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorldNewsSwiftUIApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AAB35D42D4A1E2200B99784 /* ArticleSwiftUIAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSwiftUIAppApp.swift; sourceTree = "<group>"; };
+		1AAB35D52D4A1E2200B99784 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1AAB35D72D4A1E2200B99784 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1A326A9E2D4409C2001EFCD2 /* Exceptions for "WorldNewsSwiftUIApp" folder in "WorldNewsSwiftUIApp" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 1A4DF1072D2F0DDF00D3B860 /* WorldNewsSwiftUIApp */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1A4DF10A2D2F0DDF00D3B860 /* WorldNewsSwiftUIApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				1A326A9E2D4409C2001EFCD2 /* Exceptions for "WorldNewsSwiftUIApp" folder in "WorldNewsSwiftUIApp" target */,
-			);
 			path = WorldNewsSwiftUIApp;
+			sourceTree = "<group>";
+		};
+		1AAB3AF12D5508CA00B99784 /* Preview Content */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -59,6 +56,10 @@
 		1A4DF0FF2D2F0DDF00D3B860 = {
 			isa = PBXGroup;
 			children = (
+				1AAB3AF12D5508CA00B99784 /* Preview Content */,
+				1AAB35D72D4A1E2200B99784 /* Info.plist */,
+				1AAB35D42D4A1E2200B99784 /* ArticleSwiftUIAppApp.swift */,
+				1AAB35D52D4A1E2200B99784 /* ContentView.swift */,
 				1A4DF10A2D2F0DDF00D3B860 /* WorldNewsSwiftUIApp */,
 				1A0372CC2D2F17D600A4CDFB /* Frameworks */,
 				1A4DF1092D2F0DDF00D3B860 /* Products */,
@@ -91,6 +92,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				1A4DF10A2D2F0DDF00D3B860 /* WorldNewsSwiftUIApp */,
+				1AAB3AF12D5508CA00B99784 /* Preview Content */,
 			);
 			name = WorldNewsSwiftUIApp;
 			packageProductDependencies = (
@@ -155,6 +157,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AAB35F02D4A1E2200B99784 /* ArticleSwiftUIAppApp.swift in Sources */,
+				1AAB35F12D4A1E2200B99784 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,12 +298,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"WorldNewsSwiftUIApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
 				DEVELOPMENT_TEAM = K852666QND;
 				EAGER_COMPILATION_ALLOW_SCRIPTS = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WorldNewsSwiftUIApp/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TopNews;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -326,12 +330,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"WorldNewsSwiftUIApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
 				DEVELOPMENT_TEAM = K852666QND;
 				EAGER_COMPILATION_ALLOW_SCRIPTS = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WorldNewsSwiftUIApp/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TopNews;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
