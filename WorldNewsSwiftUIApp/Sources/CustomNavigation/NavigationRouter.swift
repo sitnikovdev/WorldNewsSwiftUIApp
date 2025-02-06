@@ -12,8 +12,6 @@ final class NavigationRouter: ObservableObject {
     // SCREENS
     enum Screen: Equatable {
         case start
-        case itemSelection
-        case itemDetails(String)
         case tabView(item: String)
         case about
     }

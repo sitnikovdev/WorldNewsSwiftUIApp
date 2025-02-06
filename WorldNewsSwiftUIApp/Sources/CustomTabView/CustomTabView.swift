@@ -123,7 +123,7 @@ private struct TabBar: View {
 
             } label: {
                 VStack {
-                    Image(systemName: "homekit")
+                    Image(systemName: "newspaper")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 22)

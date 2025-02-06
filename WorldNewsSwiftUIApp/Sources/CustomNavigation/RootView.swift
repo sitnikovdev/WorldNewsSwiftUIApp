@@ -25,13 +25,6 @@ struct RootView: View {
                     StartScreen()
                         .transition(router.currentTransition)
 
-                case .itemSelection:
-                    ItemSelectionScreen()
-                        .transition(router.currentTransition)
-
-                case .itemDetails(let item):
-                    DetailsScreen(item: item)
-                        .transition(router.currentTransition)
 
                 case .tabView(let item):
                     CustomTabView(item: item)

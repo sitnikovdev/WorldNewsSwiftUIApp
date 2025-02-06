@@ -13,10 +13,8 @@ struct BookmarkTabView: View {
 
 
     var body: some View {
-        NavigationView {
             ArticleListView(articles: articles)
                 .navigationTitle("Bookmarks")
-        }
     }
 
     private var articles: [Article] {

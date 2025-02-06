@@ -13,7 +13,6 @@ struct ArticleTabView: View {
 
 
     var body: some View {
-        NavigationView {
             VStack {
                 CategorySelectorView(selectedItem: $viewModel.taskUpdater.category)
                 ArticleListView(articles: articles)
@@ -22,8 +21,6 @@ struct ArticleTabView: View {
                     .refreshable(action: refresh)
                     .navigationTitle(viewModel.taskUpdater.category.rawValue.capitalized)
             }
-        }
-
     }
 
     
