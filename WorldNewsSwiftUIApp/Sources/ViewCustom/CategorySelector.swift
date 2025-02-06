@@ -73,8 +73,8 @@ public struct CategorySelector<Data, Content> : View where Data: Hashable, Conte
                             .padding(EdgeInsets(top: borderWidth ?? 2, leading: borderWidth ?? 2, bottom: borderWidth ?? 2, trailing: borderWidth ?? 2))
                             .frame(width: geo.size.width / CGFloat(sources.count))
                             .shadow(color: .black.opacity(0.1), radius: 2, x: 1, y: 1)
-                            .animation(.spring().speed(1.5))
                             .offset(x: geo.size.width / CGFloat(sources.count) * CGFloat(selectedIdx), y: 0)
+                            .animation(.spring().speed(1.5), value: selection)
                     }.frame(height: 32)
                 }
             }
