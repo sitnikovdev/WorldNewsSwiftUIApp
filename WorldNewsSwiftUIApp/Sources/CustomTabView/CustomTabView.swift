@@ -40,58 +40,8 @@ struct MainTab: View {
         // Using NavigationStack for native push/pop navigation within the tab
         NavigationStack(path: $router.mainTabPath) {
 
-            List {
+            ArticleTabView()
 
-                // PROFILE
-                NavigationLink(
-                    "Profile",
-                    value: MainTabDestination.profile
-                )
-
-                // SETTINGS
-                NavigationLink(
-                    "Settings",
-                    value: MainTabDestination.settings
-                )
-
-                // DETAILS
-                ForEach(1...3, id: \.self) { index in
-                    NavigationLink(
-
-                        "Detail \(index)",
-                        value: MainTabDestination.detail("Item \(index)")
-                    )
-                }
-            }
-            .navigationTitle(item)
-            // Custom back navigation to start screen
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-
-                    Button("Back") {
-                        router.navigate(to: .start,
-                                        with: .leftDirection)
-                    }
-                }
-            }
-            .navigationDestination(for: MainTabDestination.self) { destination in
-             // Type-safe destination handling
-
-                switch destination {
-
-                // DETAIL VIEW
-                case .detail(let item):
-                    Text("Detail View: \(item)")
-
-                // SETTINGS VIEW
-                case .settings:
-                    Text("Settings View")
-
-                // PROFILE VIEW
-                case .profile:
-                    Text("Profile View")
-                }
-            }
         }
     }
 } // MAIN TAB ITEM
